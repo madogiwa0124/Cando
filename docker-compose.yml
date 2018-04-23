@@ -1,0 +1,26 @@
+# DB用のコンテナ
+db_server:
+  image: postgres
+  ports:
+    - "5432" # postgresqlのデフォルトのポートを公開
+# Web用のコンテナ
+web_server:
+  # DockerFileの配置フォルダ
+  build: .
+  # コンテナ起動時に実行されるコマンド
+  command: bundle exec rails s -p 3000 -b 0.0.0.0
+  # localhost:3000とコンテナ:3000を紐付ける
+  ports:
+    - "3000:3000"
+  # dbとwebを関連付け
+  links:
+    - db_server
+  # ローカルのルートディレクトリをコンテナ上の作業ディレクトリと関連付け
+  volumes:
+    - ./:/cando
+  # 環境変数
+  environment:
+    DATABASE_USER: postgres
+    DATABASE_PASSWORD:
+    DATABASE_PORT: 5432
+    DATABASE_HOST: db_server
