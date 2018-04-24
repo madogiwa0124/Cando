@@ -29,5 +29,5 @@ $ rails db:create
 $ rails db:migrate
 ``` 
 
-### コンテナ起動時にdockersampleapp_web_server_1 exited with code 1が発生する
+#### コンテナ起動時にdockersampleapp_web_server_1 exited with code 1が発生する
 `tmp/pids/server.pid`を削除して再度、`docker-compose up`を実行してみてください。
