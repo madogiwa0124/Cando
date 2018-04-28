@@ -45,6 +45,8 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "guard-rspec"
   gem "spring-commands-rspec"
+  gem 'pry-rails'
+  gem 'better_errors'
 end
 
 group :development do
