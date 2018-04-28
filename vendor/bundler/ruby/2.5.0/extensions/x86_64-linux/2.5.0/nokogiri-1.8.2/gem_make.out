@@ -1,3 +1,0 @@
-current directory: /cando/vendor/bundler/ruby/2.5.0/gems/nokogiri-1.8.2/ext/nokogiri
-/usr/local/bin/ruby -r ./siteconf20180428-59-i8c37u.rb extconf.rb
-undefined method `success?' for nil:NilClass
