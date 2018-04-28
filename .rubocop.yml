@@ -1,0 +1,38 @@
+# Railsプロジェクトかどうか
+Rails:
+  Enabled: true
+
+# 日本語でのコメントを許可
+AsciiComments:
+  Enabled: false
+
+# メソッド名のprefixに「set_」「get_」を許可
+AccessorMethodName:
+  Enabled: false
+
+# クラスにコメントを残さない
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 100
+
+FrozenStringLiteralComment:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.5.1
+  Exclude:
+    - db/**/*
+    - vendor/**/*
+    - config/**/*
+    - bin/**/*
+    - tmp/**/*
+    - Gemfile
+    - Gemfile.lock
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
+    - test/application_system_test_case.rb
