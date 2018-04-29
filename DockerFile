@@ -15,6 +15,6 @@ WORKDIR $APP_ROOT
 ADD Gemfile ${APP_ROOT}/Gemfile
 ADD Gemfile.lock ${APP_ROOT}/Gemfile.lock
 # コンテナ上でbundle install
-RUN bundle install
+RUN bundle install --path vendor/bundler
 # rootフォルダ配下をコンテナ上にコピー
 ADD . $APP_ROOT
