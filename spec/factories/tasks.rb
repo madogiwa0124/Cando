@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :task do
-    title "MyString"
-    description "MyText"
-    status 1
-    priority 1
+    title "Task title"
+    description "Task description"
+    status Task.statuses[:todo]
+    priority Task.priorities[:medium]
+    deadline Time.current.since(1.day)
   end
 end
