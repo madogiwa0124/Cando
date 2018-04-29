@@ -1,18 +1,24 @@
 %h1 Listing tasks
 
-%table
+%table{ border: '1' }
   %thead
     %tr
-      %th
-      %th
-      %th
-
+      %th title
+      %th status
+      %th priority
+      %th deadline
+      %th actions
   %tbody
     - @tasks.each do |task|
       %tr
-        %td= link_to 'Show', task
-        %td= link_to 'Edit', edit_task_path(task)
-        %td= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= task.title
+        %td= task.status
+        %td= task.priority
+        %td= task.deadline
+        %td 
+          = link_to 'Show', task
+          = link_to 'Edit', edit_task_path(task)
+          = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
