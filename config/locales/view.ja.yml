@@ -1,0 +1,17 @@
+ja:  
+  tasks:
+    index:
+      title: タスク一覧
+    new:
+      title: 新規タスク
+    show:
+      title: タスク詳細
+    edit:
+      title: タスク編集
+  common:
+    back: 戻る
+    show: 詳細
+    new: 新規
+    edit: 編集
+    destroy: 削除
+    save: 保存
