@@ -1,0 +1,19 @@
+%p#notice= notice
+%h1= @task.title
+%div
+  %p Description
+  %p= @task.description
+%div
+  %p Status
+  %p= @task.status
+%div
+  %p Priority
+  %p= @task.priority
+%div
+  %p Deadline
+  %p= @task.deadline
+
+
+= link_to 'Edit', edit_task_path(@task)
+\|
+= link_to 'Back', tasks_path
