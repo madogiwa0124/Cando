@@ -1,24 +1,24 @@
-%h1 Listing tasks
+%h1= t '.title'
 
-%table{ border: '1' }
+%table{ border: 1 }
   %thead
     %tr
-      %th title
-      %th status
-      %th priority
-      %th deadline
-      %th actions
+      %th= Task.human_attribute_name(:title)
+      %th= Task.human_attribute_name(:status)
+      %th= Task.human_attribute_name(:priority)
+      %th= Task.human_attribute_name(:deadline)
+      %th Actions
   %tbody
     - @tasks.each do |task|
       %tr
         %td= task.title
-        %td= task.status
-        %td= task.priority
-        %td= task.deadline
+        %td= task.status_i18n
+        %td= task.priority_i18n
+        %td= l(task.deadline, format: :long)
         %td 
-          = link_to 'Show', task
-          = link_to 'Edit', edit_task_path(task)
-          = link_to 'Destroy', task, method: :delete
+          = link_to t('common.show'), task
+          = link_to t('common.edit'), edit_task_path(task)
+          = link_to t('common.destroy'), task, method: :delete
 %br
 
-= link_to 'New Task', new_task_path
+= link_to t('common.new') + t('activerecord.models.task'), new_task_path
