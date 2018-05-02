@@ -1,19 +1,22 @@
 %p#notice= notice
 %h1= @task.title
 %div
-  %p Description
-  %p= @task.description
+  = label :task, :description
+  %br
+  = @task.description
 %div
-  %p Status
-  %p= @task.status
+  = label :task, :status
+  ：
+  = @task.status_i18n
 %div
-  %p Priority
-  %p= @task.priority
+  = label :task, :priority
+  ：
+  = @task.priority_i18n
 %div
-  %p Deadline
-  %p= @task.deadline
+  = label :task, :deadline
+  ：
+  = l(@task.deadline, format: :long)
 
-
-= link_to 'Edit', edit_task_path(@task)
-\|
-= link_to 'Back', tasks_path
+= link_to t('common.edit'), edit_task_path(@task)
+|
+= link_to t('common.back'), tasks_path
