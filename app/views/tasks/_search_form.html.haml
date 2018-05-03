@@ -1,0 +1,5 @@
+%div
+  = form_tag(search_tasks_path, method: :get) do
+    = text_field_tag 'task[title]'
+    = select_tag 'task[status]', options_for_select(Task.statuses_i18n.invert), prompt: '-'
+    = submit_tag '検索'
