@@ -12,4 +12,9 @@ class Task < ApplicationRecord
       errors.add(:deadline, "は現在時刻以降の日時を設定してください。")
     end
   end
+
+  def self.search(search_attr)
+    attr = search_attr.clone
+    where("title LIKE '%#{ attr.delete(:title) }%'").where(attr)
+  end
 end
