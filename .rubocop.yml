@@ -17,6 +17,9 @@ Documentation:
 LineLength:
   Max: 120
 
+BlockLength:
+  Max: 80
+
 FrozenStringLiteralComment:
   Enabled: false
 
