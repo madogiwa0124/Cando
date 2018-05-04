@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   def prepare_search_attr
     @search_attr = task_params
     # 未指定の場合は検索条件から削除
-    @search_attr.delete_if {|_key, val| val.blank? }
+    @search_attr.delete_if { |_key, val| val.blank? }
   end
 
   def task_params

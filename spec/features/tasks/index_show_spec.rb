@@ -15,7 +15,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
 
     describe 'タスク検索' do
       before do
-        fill_in Task.human_attribute_name(:title),	with: task1.title
+        fill_in Task.human_attribute_name(:title), with: task1.title
         select Task.statuses_i18n[task1.status], from: Task.human_attribute_name(:status)
         click_button I18n.t('common.search')
       end
