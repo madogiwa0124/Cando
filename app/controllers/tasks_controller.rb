@@ -1,6 +1,13 @@
 class TasksController < ApplicationController
   def index
+    prepare_search_attr
     @tasks = Task.all
+  end
+
+  def search
+    prepare_search_attr
+    @tasks = Task.search(@search_attr)
+    render :index
   end
 
   def show
@@ -40,6 +47,11 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def prepare_search_attr
+    @search_attr = { title: '', status: '' }
+    @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
+  end
 
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority, :deadline)

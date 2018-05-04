@@ -5,30 +5,30 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
     context '正常な入力値でタスクを登録した場合' do
       before do
         visit new_task_path
-        fill_in 'Title',       with: task.title
-        fill_in 'Description', with: task.description
-        select task.status,    from: 'Status'
-        select task.priority,  from: 'Priority'
-        fill_in 'Deadline',    with: task.deadline
+        fill_in Task.human_attribute_name(:title),       with: task.title
+        fill_in Task.human_attribute_name(:description), with: task.description
+        fill_in Task.human_attribute_name(:deadline),    with: task.deadline
+        select Task.statuses_i18n[task.status],     from: Task.human_attribute_name(:status)
+        select Task.priorities_i18n[task.priority], from: Task.human_attribute_name(:priority)
       end
 
       it 'タスクが登録されること' do
-        expect { click_button 'Save' }.to change(Task, :count).by(1)
+        expect { click_button I18n.t('common.save') }.to change(Task, :count).by(1)
       end
     end
 
     context '異常な入力値でタスクを登録した場合' do
       before do
         visit new_task_path
-        fill_in 'Title',       with: task.title
-        fill_in 'Description', with: task.description
-        select task.status,    from: 'Status'
-        select task.priority,  from: 'Priority'
-        fill_in 'Deadline',    with: Time.current.ago(1.day)
+        fill_in Task.human_attribute_name(:title),       with: task.title
+        fill_in Task.human_attribute_name(:description), with: task.description
+        fill_in Task.human_attribute_name(:deadline),    with: Time.current.ago(1.day)
+        select Task.statuses_i18n[task.status],     from: Task.human_attribute_name(:status)
+        select Task.priorities_i18n[task.priority], from: Task.human_attribute_name(:priority)
       end
 
-      it 'タスクが登録されないこと' do  
-        expect { click_button 'Save' }.to change(Task, :count).by(0)
+      it 'タスクが登録されないこと' do
+        expect { click_button I18n.t('common.save') }.to change(Task, :count).by(0)
       end
     end
   end
@@ -38,8 +38,8 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
     context '正常な入力値でタスクを登録した場合' do
       before do
         visit edit_task_path(task)
-        fill_in 'Title', with: 'edited'
-        click_button 'Save'
+        fill_in Task.human_attribute_name(:title), with: 'edited'
+        click_button I18n.t('common.save')
       end
 
       it 'タスクが更新されること' do
@@ -50,12 +50,12 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
     context '異常な入力値でタスクを更新した場合' do
       before do
         visit edit_task_path(task)
-        fill_in 'Title',    with: 'edited'
-        fill_in 'Deadline', with: Time.current.ago(1.day)
-        click_button 'Save'
+        fill_in Task.human_attribute_name(:title),    with: 'edited'
+        fill_in Task.human_attribute_name(:deadline), with: Time.current.ago(1.day)
+        click_button I18n.t('common.save')
       end
 
-      it 'タスクが更新されないこと' do  
+      it 'タスクが更新されないこと' do
         expect(Task.find(task.id).title).to eq task.title
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
     before { visit tasks_path }
 
     it 'タスクが削除されること' do
-      expect { first('tbody tr').click_link 'Destroy' }.to change(Task, :count).by(-1)
+      expect { first('tbody tr').click_link I18n.t('common.destroy') }.to change(Task, :count).by(-1)
     end
   end
 end

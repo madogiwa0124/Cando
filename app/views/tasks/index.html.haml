@@ -1,5 +1,6 @@
 %h1= t '.title'
-
+= render partial: 'search_form', locals: { search_attr: @search_attr }
+%br
 %table{ border: 1 }
   %thead
     %tr
