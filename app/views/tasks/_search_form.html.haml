@@ -1,7 +1,7 @@
 %div
   = form_tag(search_tasks_path, method: :get) do
     = label_tag :task_title, Task.human_attribute_name(:title)
-    = text_field_tag 'task[title]'
+    = text_field_tag 'task[title]', @search_attr[:title]
     = label_tag :task_status, Task.human_attribute_name(:status)
-    = select_tag 'task[status]', options_for_select(Task.statuses_i18n.invert), prompt: '-'
+    = select_tag 'task[status]', options_for_select(Task.statuses_i18n.invert, @search_attr[:status]), prompt: '-'
     = submit_tag t('common.search')

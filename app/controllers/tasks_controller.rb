@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   def index
+    prepare_search_attr
     @tasks = Task.all
   end
 
@@ -48,9 +49,11 @@ class TasksController < ApplicationController
   private
 
   def prepare_search_attr
-    @search_attr = task_params
-    # 未指定の場合は検索条件から削除
-    @search_attr.delete_if { |_key, val| val.blank? }
+    @search_attr = if params.key?(:task)
+      task_params.delete_if { |_key, val| val.blank? }
+    else
+      { title: '', status: '' }
+    end
   end
 
   def task_params
