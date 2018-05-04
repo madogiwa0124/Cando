@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def search
     prepare_search_attr
-    @tasks = Task.where(@search_attr)
+    @tasks = Task.search(@search_attr)
     render :index
   end
 
