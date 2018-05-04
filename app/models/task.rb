@@ -15,6 +15,6 @@ class Task < ApplicationRecord
 
   def self.search(search_attr)
     attr = search_attr.clone
-    where("title LIKE '%#{ attr.delete(:title) }%'").where(attr)
+    where('title LIKE ?', "%#{attr.delete(:title)}%").where(attr)
   end
 end
