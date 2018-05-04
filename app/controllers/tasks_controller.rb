@@ -49,11 +49,8 @@ class TasksController < ApplicationController
   private
 
   def prepare_search_attr
-    @search_attr = if params.key?(:task)
-      task_params.delete_if { |_key, val| val.blank? }
-    else
-      { title: '', status: '' }
-    end
+    @search_attr = { title: '', status: '' }
+    @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
   end
 
   def task_params
