@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
     prepare_search_attr
-    @tasks = Task.all
+    @tasks = Task.all.order(order_string)
   end
 
   def search
@@ -48,6 +48,11 @@ class TasksController < ApplicationController
 
   private
 
+  def order_string
+    return 'deadline DESC' unless params.key?(:order)
+    order_params.to_h.map { |key, val| "#{key} #{val.upcase}" }.join(',')
+  end
+
   def prepare_search_attr
     @search_attr = { title: '', status: '' }
     @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
@@ -55,5 +60,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority, :deadline)
+  end
+
+  def order_params
+    params.require(:order).permit(:deadline)
   end
 end
