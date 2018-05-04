@@ -49,7 +49,7 @@ RSpec.describe Task, type: :model do
     let!(:task2) { FactoryBot.create(:task, title: 'タイトル_10', status: Task.statuses[:done]) }
     let!(:task3) { FactoryBot.create(:task, title: 'タイトル_2') }
     let!(:task4) { FactoryBot.create(:task, title: 'タイトル_11') }
-    
+
     it '正しい検索結果となること※title like param AND status=param' do
       attr = { title: task1.title, status: task1.status }
       expect(Task.search(attr).pluck(:title)).to eq [task1.title, task4.title]
