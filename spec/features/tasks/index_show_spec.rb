@@ -25,6 +25,11 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
         expect(page).to_not have_content task2.title
         expect(page).to_not have_content task3.title
       end
+
+      it '検索後も入力値が保持されること' do
+        expect(page).to have_field Task.human_attribute_name(:title), with: task1.title
+        expect(page).to have_select Task.human_attribute_name(:status), selected: Task.statuses_i18n[task1.status]
+      end
     end
   end
 
