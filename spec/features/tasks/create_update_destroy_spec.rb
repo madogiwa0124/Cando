@@ -27,7 +27,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
         select Task.priorities_i18n[task.priority], from: Task.human_attribute_name(:priority)
       end
 
-      it 'タスクが登録されないこと' do  
+      it 'タスクが登録されないこと' do
         expect { click_button I18n.t('common.save') }.to change(Task, :count).by(0)
       end
     end
@@ -55,7 +55,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
         click_button I18n.t('common.save')
       end
 
-      it 'タスクが更新されないこと' do  
+      it 'タスクが更新されないこと' do
         expect(Task.find(task.id).title).to eq task.title
       end
     end
