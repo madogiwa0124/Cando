@@ -13,15 +13,19 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
       expect(page).to have_content task3.title
     end
 
-    it 'タイトルとステータスでタスクの検索が行えること' do
-      fill_in Task.human_attribute_name(:title),	with: task1.title
-      select Task.statuses_i18n[task1.status], from: Task.human_attribute_name(:status)
-      click_button I18n.t('common.search')
-      expect(page).to have_content task1.title
-      expect(page).to_not have_content task2.title
-      expect(page).to_not have_content task3.title
-    end
+    describe 'タスク検索' do
+      before do
+        fill_in Task.human_attribute_name(:title),	with: task1.title
+        select Task.statuses_i18n[task1.status], from: Task.human_attribute_name(:status)
+        click_button I18n.t('common.search')
+      end
 
+      it 'タイトルとステータスでタスクの検索が行えること' do
+        expect(page).to have_content task1.title
+        expect(page).to_not have_content task2.title
+        expect(page).to_not have_content task3.title
+      end
+    end
   end
 
   describe "タスク詳細" do
