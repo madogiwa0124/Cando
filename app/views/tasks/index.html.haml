@@ -9,8 +9,8 @@
       %th= Task.human_attribute_name(:priority)
       %th
         = Task.human_attribute_name(:deadline)
-        = link_to '▲', tasks_path('order[deadline]': 'asc')
-        = link_to '▼', tasks_path('order[deadline]': 'desc')
+        = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'asc' }
+        = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'desc' }
       %th Actions
   %tbody
     - @tasks.each do |task|

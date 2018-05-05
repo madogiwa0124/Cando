@@ -6,7 +6,7 @@ FactoryBot.define do
     priority Task.priorities[:medium]
     status Task.statuses[:todo]
 
-    trait :low do 
+    trait :low do
       priority Task.priorities[:low]
     end
     trait :medium do
@@ -18,7 +18,7 @@ FactoryBot.define do
     trait :todo do
       status Task.statuses[:todo]
     end
-    trait :doing do 
+    trait :doing do
       status Task.statuses[:doing]
     end
     trait :done do

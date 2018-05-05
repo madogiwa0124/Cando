@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def search
     prepare_search_attr
-    @tasks = Task.search(@search_attr)
+    @tasks = Task.search(@search_attr).order(order_string)
     render :index
   end
 
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
   end
 
   def prepare_search_attr
-    @search_attr = { title: '', status: '' }
+    @search_attr = { title: '' }
     @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
   end
 
