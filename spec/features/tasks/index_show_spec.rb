@@ -1,8 +1,8 @@
 require 'rails_helper'
 RSpec.describe '登録したタスクを確認する', type: :feature, js: true do
   let!(:task1) { FactoryBot.create(:task, :low,    :done,  title: 'タイトル1', deadline: Time.current.since(1.day)) }
-  let!(:task2) { FactoryBot.create(:task, :medium, :doing, title: 'タイトル2', deadline: Time.current.since(2.day)) }
-  let!(:task3) { FactoryBot.create(:task, :high,   :todo,  title: 'タイトル3', deadline: Time.current.since(3.day)) }
+  let!(:task2) { FactoryBot.create(:task, :medium, :doing, title: 'タイトル2', deadline: Time.current.since(2.days)) }
+  let!(:task3) { FactoryBot.create(:task, :high,   :todo,  title: 'タイトル3', deadline: Time.current.since(3.days)) }
 
   describe 'タスク一覧' do
     before { visit tasks_path }
@@ -32,9 +32,9 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
       end
     end
 
-    describe 'タスクの並び替え' do      
+    describe 'タスクの並び替え' do
       it '期限の降順で並び替えが行えること' do
-        within(all('thead th')[3]) do 
+        within(all('thead th')[3]) do
           click_link '▼'
         end
         expect(all('tbody tr')[0]).to have_content task3.title
@@ -43,7 +43,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
       end
 
       it '期限の昇順で並び替えが行えること' do
-        within(all('thead th')[3]) do 
+        within(all('thead th')[3]) do
           click_link '▲'
         end
         expect(all('tbody tr')[0]).to have_content task1.title
