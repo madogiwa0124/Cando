@@ -6,7 +6,10 @@
     %tr
       %th= Task.human_attribute_name(:title)
       %th= Task.human_attribute_name(:status)
-      %th= Task.human_attribute_name(:priority)
+      %th
+        = Task.human_attribute_name(:priority)
+        = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'asc' }
+        = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'desc' }
       %th
         = Task.human_attribute_name(:deadline)
         = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'asc' }

@@ -50,6 +50,24 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
         expect(all('tbody tr')[1]).to have_content task2.title
         expect(all('tbody tr')[2]).to have_content task3.title
       end
+
+      it '重要度の降順で並び替えが行えること' do
+        within(all('thead th')[2]) do
+          click_button '▼'
+        end
+        expect(all('tbody tr')[0]).to have_content task3.title
+        expect(all('tbody tr')[1]).to have_content task2.title
+        expect(all('tbody tr')[2]).to have_content task1.title
+      end
+
+      it '重要度の昇順で並び替えが行えること' do
+        within(all('thead th')[2]) do
+          click_button '▲'
+        end
+        expect(all('tbody tr')[0]).to have_content task1.title
+        expect(all('tbody tr')[1]).to have_content task2.title
+        expect(all('tbody tr')[2]).to have_content task3.title
+      end
     end
   end
 

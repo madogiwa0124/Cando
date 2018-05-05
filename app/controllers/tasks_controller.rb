@@ -63,6 +63,6 @@ class TasksController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:deadline)
+    params.require(:order).permit(:deadline, :priority)
   end
 end
