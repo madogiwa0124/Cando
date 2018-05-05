@@ -35,7 +35,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
     describe 'タスクの並び替え' do
       it '期限の降順で並び替えが行えること' do
         within(all('thead th')[3]) do
-          click_link '▼'
+          click_button '▼'
         end
         expect(all('tbody tr')[0]).to have_content task3.title
         expect(all('tbody tr')[1]).to have_content task2.title
@@ -44,7 +44,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
 
       it '期限の昇順で並び替えが行えること' do
         within(all('thead th')[3]) do
-          click_link '▲'
+          click_button '▲'
         end
         expect(all('tbody tr')[0]).to have_content task1.title
         expect(all('tbody tr')[1]).to have_content task2.title
