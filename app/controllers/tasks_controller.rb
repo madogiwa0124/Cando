@@ -49,7 +49,7 @@ class TasksController < ApplicationController
   private
 
   def order_string
-    return 'deadline DESC' unless params.key?(:order)
+    return 'created_at DESC' unless params.key?(:order)
     order_params.to_h.map { |key, val| "#{key} #{val.upcase}" }.join(',')
   end
 
