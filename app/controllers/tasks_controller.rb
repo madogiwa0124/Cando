@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
   def index
     prepare_search_attr
-    @tasks = Task.all
+    @tasks = Task.all.order(order_string)
   end
 
   def search
     prepare_search_attr
-    @tasks = Task.search(@search_attr)
+    @tasks = Task.search(@search_attr).order(order_string)
     render :index
   end
 
@@ -48,12 +48,21 @@ class TasksController < ApplicationController
 
   private
 
+  def order_string
+    return 'created_at DESC' unless params.key?(:order)
+    order_params.to_h.map { |key, val| "#{key} #{val.upcase}" }.join(',')
+  end
+
   def prepare_search_attr
-    @search_attr = { title: '', status: '' }
+    @search_attr = { title: '' }
     @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
   end
 
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority, :deadline)
+  end
+
+  def order_params
+    params.require(:order).permit(:deadline, :priority)
   end
 end
