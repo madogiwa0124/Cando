@@ -1,12 +1,20 @@
 class TasksController < ApplicationController
+  TASKS_DISPLAY_PER_PAGE = 10
+
   def index
     prepare_search_attr
-    @tasks = Task.all.order(order_string)
+    @tasks = Task.all
+                 .order(order_string)
+                 .page(params[:page])
+                 .per(TASKS_DISPLAY_PER_PAGE)
   end
 
   def search
     prepare_search_attr
-    @tasks = Task.search(@search_attr).order(order_string)
+    @tasks = Task.search(@search_attr)
+                 .order(order_string)
+                 .page(params[:page])
+                 .per(TASKS_DISPLAY_PER_PAGE)
     render :index
   end
 
