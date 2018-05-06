@@ -45,7 +45,7 @@ $ rails db:migrate
 $ rm tmp/pids/server.pid
 $ docker-compose run web_server rails s
 ```
-# 進捗メモ :memo
+# 進捗メモ :memo:
 ## 必須要件
 * [x] ステップ1: Railsの開発環境を構築しよう
 * [x] ステップ2: GitHubにリポジトリを作成しよう
