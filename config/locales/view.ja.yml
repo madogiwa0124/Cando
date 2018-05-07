@@ -2,10 +2,13 @@ ja:
   tasks:
     index:
       title: タスク一覧
+      search_conditions: 検索条件
+      search_result: 検索結果
     new:
       title: 新規タスク
     show:
       title: タスク詳細
+      information: 各種情報
     edit:
       title: タスク編集
   common:
