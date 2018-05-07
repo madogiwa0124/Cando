@@ -2,4 +2,4 @@
   = hidden_field_tag 'task[title]', search_attr[:title]
   = hidden_field_tag 'task[status]', search_attr[:status]
   = hidden_field_tag "order[#{target}]", order
-  = submit_tag order_icon(order)
+  = submit_tag order_icon(order), class: 'btn btn-xs btn-info'

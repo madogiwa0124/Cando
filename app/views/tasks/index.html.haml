@@ -1,31 +1,31 @@
 %h1= t '.title'
 = render partial: 'search_form', locals: { search_attr: @search_attr }
-%br
-%table{ border: 1 }
-  %thead
-    %tr
-      %th= Task.human_attribute_name(:title)
-      %th= Task.human_attribute_name(:status)
-      %th
-        = Task.human_attribute_name(:priority)
-        = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'asc' }
-        = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'desc' }
-      %th
-        = Task.human_attribute_name(:deadline)
-        = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'asc' }
-        = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'desc' }
-      %th Actions
-  %tbody
-    - @tasks.each do |task|
+
+%h3= t '.search_result'
+%div.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
       %tr
-        %td= task.title
-        %td= task.status_i18n
-        %td= task.priority_i18n
-        %td= l(task.deadline, format: :long)
-        %td 
-          = link_to t('common.show'), task
-          = link_to t('common.edit'), edit_task_path(task)
-          = link_to t('common.destroy'), task, method: :delete
-%br
+        %th= Task.human_attribute_name(:title)
+        %th= Task.human_attribute_name(:status)
+        %th
+          = Task.human_attribute_name(:priority)
+          = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'asc' }
+          = render partial: 'order_form', locals: { target: 'priority', search_attr: @search_attr, order: 'desc' }
+        %th
+          = Task.human_attribute_name(:deadline)
+          = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'asc' }
+          = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'desc' }
+        %th Actions
+    %tbody
+      - @tasks.each do |task|
+        %tr
+          %td= task.title
+          %td= task.status_i18n
+          %td= task.priority_i18n
+          %td= l(task.deadline, format: :long)
+          %td 
+            = link_to t('common.show'), task, class: 'btn btn-primary btn-xs'
+            = link_to t('common.edit'), edit_task_path(task), class: 'btn btn-warning btn-xs'
+            = link_to t('common.destroy'), task, method: :delete, class: 'btn btn-danger btn-xs'
 = paginate @tasks
-= link_to t('common.new') + t('activerecord.models.task'), new_task_path

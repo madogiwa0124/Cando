@@ -4,23 +4,22 @@
       %ul
         - @task.errors.full_messages.each do |message|
           %li= message
-  %div
+  %div.form-group
     = f.label :title
-    = f.text_field :title
-  %div
+    = f.text_field :title, class: 'form-control'
+  %div.form-group
     = f.label :description
-    %br
-    = f.text_area :description
-  %div
+    = f.text_area :description, class: 'form-control'
+  %div.form-group
     = f.label :status
-    = f.select :status, Task.statuses_i18n.invert
-  %div
+    = f.select :status, Task.statuses_i18n.invert, {}, { class: 'form-control' }
+  %div.form-group
     = f.label :priority
-    = f.select :priority, Task.priorities_i18n.invert
-  %div
+    = f.select :priority, Task.priorities_i18n.invert, {}, { class: 'form-control' }
+  %div.form-group
     = f.label :deadline
-    = f.datetime_local_field :deadline
+    = f.datetime_local_field :deadline, class: 'form-control'
 
   .actions
-    = f.submit t('common.save')
+    = f.submit t('common.save'), class: 'btn btn-primary'
 
