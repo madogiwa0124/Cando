@@ -1,4 +1,5 @@
-%p#notice= notice
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
 %h1= @task.title
 %div.panel.panel-default
   %div.panel-heading
