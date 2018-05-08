@@ -1,0 +1,6 @@
+%h1= t '.title'
+
+= render 'form'
+%br
+= link_to t('common.show'), @task, class: 'btn btn-info'
+= link_to t('common.back'), tasks_path, class: 'btn btn-default'

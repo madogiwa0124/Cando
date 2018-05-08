@@ -1,0 +1,29 @@
+ja:  
+  tasks:
+    index:
+      title: タスク一覧
+      search_conditions: 検索条件
+      search_result: 検索結果
+    new:
+      title: 新規タスク
+    show:
+      title: タスク詳細
+      information: 各種情報
+    edit:
+      title: タスク編集
+  common:
+    back: 戻る
+    show: 詳細
+    new: 新規
+    edit: 編集
+    destroy: 削除
+    save: 保存
+    search: 検索
+    notset: 未設定
+  views:
+    pagination:
+      first: "最初"
+      last: "最後"
+      previous: "前"
+      next: "次"
+      truncate: "..."
