@@ -1,8 +1,11 @@
 %div
-  = form_tag(search_tasks_path, method: :get) do
-    = label_tag :task_title, Task.human_attribute_name(:title)
-    = text_field_tag 'task[title]', search_attr[:title]
-    = label_tag :task_status, Task.human_attribute_name(:status)
-    - statuses = Task.statuses_i18n.invert
-    = select_tag 'task[status]', options_for_select(statuses, search_attr[:status]), prompt: '-'
-    = submit_tag t('common.search')
+  %h3= t 'tasks.index.search_conditions'
+  = form_tag(search_tasks_path, method: :get, class:'form-inline') do
+    %div.form-group
+      = label_tag :task_title, Task.human_attribute_name(:title)
+      = text_field_tag 'task[title]', search_attr[:title], class: 'form-control'
+    %div.form-group
+      = label_tag :task_status, Task.human_attribute_name(:status)
+      - statuses = Task.statuses_i18n.invert
+      = select_tag 'task[status]', options_for_select(statuses, search_attr[:status]), prompt: '-', class: 'form-control'
+    = submit_tag t('common.search'), class: 'btn btn-default'
