@@ -1,6 +1,6 @@
 = form_for @task do |f|
   - if @task.errors.any?
-    #error_explanation
+    %div.alert.alert-danger{ role: 'alert' }
       %ul
         - @task.errors.full_messages.each do |message|
           %li= message
