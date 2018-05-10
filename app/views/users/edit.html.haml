@@ -1,7 +1,6 @@
-%h1 Editing user
+%h1= t '.title'
 
 = render 'form'
-
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+%br
+= link_to t('common.show'), @user, class: 'btn btn-info'
+= link_to t('common.back'), users_path, class: 'btn btn-default'
