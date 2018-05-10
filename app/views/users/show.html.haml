@@ -1,15 +1,23 @@
-%p#notice= notice
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
 
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Crypted password:
-  = @user.crypted_password
-%p
-  %b Salt:
-  = @user.salt
+%h1= t '.title'
 
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+%div.panel.panel-default
+  %div.panel-heading= label :user, t('.information')
+  %table.table
+    %tr
+      %td= label :user, :email
+      %td= @user.email
+    %tr
+      %td= label :user, :crypted_password
+      %td= @user.crypted_password.truncate(20)
+    %tr
+      %td= label :user, :salt
+      %td= @user.salt
+    %tr
+      %td= label :user, :created_at
+      %td= @user.created_at
+
+= link_to t('common.edit'), edit_user_path(@user), class: 'btn btn-warning'
+= link_to t('common.back'), users_path, class: 'btn btn-default'

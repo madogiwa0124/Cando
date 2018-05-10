@@ -1,25 +1,28 @@
-%h1 Listing users
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
+%h1= t '.title'
 
-%table
-  %thead
-    %tr
-      %th Email
-      %th Crypted password
-      %th Salt
-      %th
-      %th
-      %th
-
-  %tbody
-    - @users.each do |user|
+%div.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
       %tr
-        %td= user.email
-        %td= user.crypted_password
-        %td= user.salt
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+        %th= User.human_attribute_name(:id)
+        %th= User.human_attribute_name(:email)
+        %th= User.human_attribute_name(:crypted_password)
+        %th= User.human_attribute_name(:salt)
+        %th= User.human_attribute_name(:created_at)
+        %th Actions
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.id
+          %td= user.email
+          %td= user.crypted_password.truncate(20)
+          %td= user.salt
+          %td= l(user.created_at, format: :long)
+          %td
+            = link_to t('common.show'), user, class: 'btn btn-primary btn-xs'
+            = link_to t('common.edit'), edit_user_path(user), class: 'btn btn-warning btn-xs'
+            = link_to t('common.destroy'), user, method: :delete, class: 'btn btn-danger btn-xs'
 
-%br
-
-= link_to 'New User', new_user_path
+= link_to t('common.new') + t('activerecord.models.user'), new_user_path, class: 'btn btn-success'
