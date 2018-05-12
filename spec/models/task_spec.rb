@@ -43,7 +43,7 @@ RSpec.describe Task, type: :model do
       end
     end
 
-    context "アソシエーション" do
+    context 'アソシエーション' do
       let!(:user) { FactoryBot.create(:user) }
       let(:task) { FactoryBot.build(:task, user: user) }
       it '紐づくユーザーが取得出来ること' do

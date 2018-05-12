@@ -23,7 +23,7 @@ RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
     end
 
     it '紐づくタスクの情報が表示されること' do
-      expect(page).to have_content task.title  
+      expect(page).to have_content task.title
     end
   end
 end
