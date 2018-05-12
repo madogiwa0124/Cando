@@ -19,6 +19,8 @@ ja:
         salt: ソルト
         created_at: 登録日
         updated_at: 更新日
+        password: パスワード
+        password_confirmation: パスワード(確認)
   enums:
     task:
       status:
