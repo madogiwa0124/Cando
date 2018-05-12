@@ -10,7 +10,7 @@ class Task < ApplicationRecord
   validate  :deadline_cannot_be_in_the_past, if: -> { deadline.present? }
 
   def deadline_cannot_be_in_the_past
-    errors.add(:deadline, 'は現在時刻以降の日時を設定してください。') if deadline < Time.current
+    errors.add(:deadline, 'は現在日付以降の日時を設定してください。') if deadline < Time.current.beginning_of_day
   end
 
   def self.search(search_attr)
