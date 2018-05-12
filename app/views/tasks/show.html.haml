@@ -11,6 +11,9 @@
     =label :task, t('.information')
   %table.table
     %tr
+      %td= label :task, :user
+      %td= @task.user&.name || t('common.notset')
+    %tr
       %td= label :task, :status
       %td= @task.status_i18n
     %tr

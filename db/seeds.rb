@@ -4,5 +4,5 @@
 end
 
 5.times do |n|
-  FactoryBot.create(:user)
+  FactoryBot.create(:user, name: "test_user_#{n}")
 end

@@ -2,7 +2,7 @@ class Task < ApplicationRecord
   enum status: { todo: 1, doing: 2, done: 3 }
   enum priority: { low: 1, medium: 2, high: 3 }
 
-  belongs_to :user
+  belongs_to :user, required: false
 
   validates :title,    presence: true
   validates :status,   presence: true
