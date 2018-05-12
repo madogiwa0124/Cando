@@ -12,10 +12,12 @@ ja:
         deadline: 期限
       user:
         id: ID
+        name: 名前
         email: メールアドレス
         crypted_password: パスワード(暗号化)
         salt: ソルト
         created_at: 登録日
+        updated_at: 更新日
   enums:
     task:
       status:
