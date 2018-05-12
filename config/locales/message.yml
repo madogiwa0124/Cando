@@ -1,0 +1,6 @@
+ja:
+  message:
+    common:
+      create: 'の作成に成功しました。'
+      update: 'の更新に成功しました。'
+      destroy: 'の削除に成功しました。'
