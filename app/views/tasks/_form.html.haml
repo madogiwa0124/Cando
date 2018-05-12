@@ -21,7 +21,7 @@
     = f.select :priority, Task.priorities_i18n.invert, {}, { class: 'form-control' }
   %div.form-group
     = f.label :deadline
-    = f.datetime_local_field :deadline, class: 'form-control'
+    = f.date_field :deadline, class: 'form-control'
 
   .actions
     = f.submit t('common.save'), class: 'btn btn-primary'

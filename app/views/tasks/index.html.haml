@@ -27,7 +27,7 @@
           %td= task.user&.name ? link_to(task.user.name, task.user) : t('common.notset')
           %td= task.status_i18n
           %td= task.priority_i18n
-          %td= task.deadline ? l(task.deadline, format: :long) : t('common.notset')
+          %td= task.deadline ? l(task.deadline.to_date) : t('common.notset')
           %td 
             = link_to t('common.show'), task, class: 'btn btn-primary btn-xs'
             = link_to t('common.edit'), edit_task_path(task), class: 'btn btn-warning btn-xs'
