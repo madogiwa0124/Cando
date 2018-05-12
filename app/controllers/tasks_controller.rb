@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     prepare_search_attr
     @tasks = Task.all
                  .order(order_string)
+                 .includes(:user)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
   end
@@ -13,6 +14,7 @@ class TasksController < ApplicationController
     prepare_search_attr
     @tasks = Task.search(@search_attr)
                  .order(order_string)
+                 .includes(:user)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
     render :index
@@ -67,7 +69,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority, :deadline)
+    params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id)
   end
 
   def order_params

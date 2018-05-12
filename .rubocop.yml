@@ -26,6 +26,9 @@ FrozenStringLiteralComment:
 ClassAndModuleChildren:
   Enabled: false
 
+HasManyOrHasOneDependent:
+  Enabled: false
+
 AllCops:
   TargetRubyVersion: 2.5.1
   Exclude:

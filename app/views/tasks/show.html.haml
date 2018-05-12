@@ -11,6 +11,9 @@
     =label :task, t('.information')
   %table.table
     %tr
+      %td= label :task, :user
+      %td= @task.user&.name || t('common.notset')
+    %tr
       %td= label :task, :status
       %td= @task.status_i18n
     %tr
@@ -21,4 +24,4 @@
       %td= @task.deadline ? l(@task.deadline, format: :long) : t('common.notset')
 
 = link_to t('common.edit'), edit_task_path(@task), class: 'btn btn-warning'
-= link_to t('common.back'), tasks_path, class: 'btn btn-default'
+= link_to t('common.back'), :back, class: 'btn btn-default'
