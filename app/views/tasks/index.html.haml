@@ -3,7 +3,9 @@
 %h1= t '.title'
 = render partial: 'search_form', locals: { search_attr: @search_attr }
 
-%h3= t '.search_result'
+%h3
+  = t '.search_result'
+  = "#{@tasks.total_count}件"
 %div.table-responsive
   %table.table.table-hover.table-striped
     %thead
