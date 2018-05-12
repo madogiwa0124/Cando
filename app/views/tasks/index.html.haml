@@ -9,6 +9,7 @@
     %thead
       %tr
         %th= Task.human_attribute_name(:title)
+        %th= Task.human_attribute_name(:user)
         %th= Task.human_attribute_name(:status)
         %th
           = Task.human_attribute_name(:priority)
@@ -23,6 +24,7 @@
       - @tasks.each do |task|
         %tr
           %td= task.title
+          %td= task.user&.name || t('common.notset')
           %td= task.status_i18n
           %td= task.priority_i18n
           %td= task.deadline ? l(task.deadline, format: :long) : t('common.notset')

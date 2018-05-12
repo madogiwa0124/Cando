@@ -10,6 +10,7 @@ ja:
         status: ステータス
         priority: 優先度
         deadline: 期限
+        user: 担当者
       user:
         id: ID
         name: 名前
