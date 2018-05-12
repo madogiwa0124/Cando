@@ -19,6 +19,7 @@ ja:
     show:
       title: ユーザー詳細
       information: 各種情報
+      task_list: 担当タスク
     edit:
       title: ユーザー編集
   common:
