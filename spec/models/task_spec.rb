@@ -42,6 +42,14 @@ RSpec.describe Task, type: :model do
         is_expected.to eq false
       end
     end
+
+    context "アソシエーション" do
+      let!(:user) { FactoryBot.create(:user) }
+      let(:task) { FactoryBot.build(:task, user: user) }
+      it '紐づくユーザーが取得出来ること' do
+        expect(task.user).not_to be_blank
+      end
+    end
   end
 
   describe '.search' do
