@@ -1,0 +1,17 @@
+%div.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
+      %tr
+        %th= Task.human_attribute_name(:title)
+        %th= Task.human_attribute_name(:status)
+        %th= Task.human_attribute_name(:priority)
+        %th= Task.human_attribute_name(:deadline)
+        %th Action
+    %tbody
+      - tasks.each do |task|
+        %tr
+          %td= task.title
+          %td= task.status_i18n
+          %td= task.priority_i18n
+          %td= task.deadline ? l(task.deadline, format: :long) : t('common.notset')
+          %td= link_to t('common.show'), task, class: 'btn btn-primary btn-xs'

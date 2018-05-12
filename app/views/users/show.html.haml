@@ -1,0 +1,27 @@
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
+
+%h1= t '.title'
+
+%div.panel.panel-default
+  %div.panel-heading= label :user, t('.information')
+  %table.table
+    %tr
+      %td= label :user, :email
+      %td= @user.email
+    %tr
+      %td= label :user, :name
+      %td= @user.name
+    %tr
+      %td= label :user, :updated_at
+      %td= @user.updated_at
+    %tr
+      %td= label :user, :created_at
+      %td= @user.created_at
+
+= link_to t('common.edit'), edit_user_path(@user), class: 'btn btn-warning'
+= link_to t('common.back'), :back, class: 'btn btn-default'
+
+%br
+%h3= t('.task_list')
+= render partial: 'task_list', locals: { tasks: @user.tasks }
