@@ -24,6 +24,7 @@ ja:
       title: ユーザー編集
   common:
     back: 戻る
+    index: 一覧
     show: 詳細
     new: 新規
     edit: 編集
