@@ -1,7 +1,7 @@
 - if notice
   %div.alert.alert-info{ role: 'alert' }= notice
 
-%h1= t '.title'
+%h1= @user.name
 
 %div.panel.panel-default
   %div.panel-heading= label :user, t('.information')
@@ -9,9 +9,6 @@
     %tr
       %td= label :user, :email
       %td= @user.email
-    %tr
-      %td= label :user, :name
-      %td= @user.name
     %tr
       %td= label :user, :updated_at
       %td= @user.updated_at
@@ -24,4 +21,4 @@
 
 %br
 %h3= t('.task_list')
-= render partial: 'task_list', locals: { tasks: @user.tasks }
+= render partial: 'task_list', locals: { tasks: @tasks }

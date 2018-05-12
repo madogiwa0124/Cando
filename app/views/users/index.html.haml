@@ -26,3 +26,5 @@
             = link_to t('common.destroy'), user, method: :delete, class: 'btn btn-danger btn-xs'
 
 = link_to t('common.new') + t('activerecord.models.user'), new_user_path, class: 'btn btn-success'
+
+= paginate @users

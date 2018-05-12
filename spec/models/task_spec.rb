@@ -38,7 +38,7 @@ RSpec.describe Task, type: :model do
       end
 
       it '期限が過去日' do
-        task.deadline = Time.current.ago(1.second)
+        task.deadline = Time.current.ago(1.day)
         is_expected.to eq false
       end
     end
