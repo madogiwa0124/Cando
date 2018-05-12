@@ -10,11 +10,11 @@
       %td= label :user, :email
       %td= @user.email
     %tr
-      %td= label :user, :crypted_password
-      %td= @user.crypted_password.truncate(20)
+      %td= label :user, :name
+      %td= @user.name
     %tr
-      %td= label :user, :salt
-      %td= @user.salt
+      %td= label :user, :updated_at
+      %td= @user.updated_at
     %tr
       %td= label :user, :created_at
       %td= @user.created_at

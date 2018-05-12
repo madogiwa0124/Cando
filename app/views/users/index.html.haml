@@ -7,18 +7,18 @@
     %thead
       %tr
         %th= User.human_attribute_name(:id)
+        %th= User.human_attribute_name(:name)
         %th= User.human_attribute_name(:email)
-        %th= User.human_attribute_name(:crypted_password)
-        %th= User.human_attribute_name(:salt)
+        %th= User.human_attribute_name(:updated_at)
         %th= User.human_attribute_name(:created_at)
         %th Actions
     %tbody
       - @users.each do |user|
         %tr
           %td= user.id
+          %td= user.name
           %td= user.email
-          %td= user.crypted_password.truncate(20)
-          %td= user.salt
+          %td= l(user.updated_at, format: :long)
           %td= l(user.created_at, format: :long)
           %td
             = link_to t('common.show'), user, class: 'btn btn-primary btn-xs'
