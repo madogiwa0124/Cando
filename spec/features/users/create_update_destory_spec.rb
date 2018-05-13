@@ -1,5 +1,14 @@
 require 'rails_helper'
 RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: true do
+  let!(:current_user)  { FactoryBot.create(:user) }
+
+  before do
+    visit login_path
+    fill_in User.human_attribute_name(:email),    with: current_user.email 
+    fill_in User.human_attribute_name(:password), with: 'password'
+    click_button I18n.t('user_sessions.new.submit')
+  end
+
   describe '登録' do
     let(:user) { FactoryBot.build(:user) }
     context '正常な入力値で登録した場合' do
