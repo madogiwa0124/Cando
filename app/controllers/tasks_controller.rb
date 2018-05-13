@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :require_login
+
   TASKS_DISPLAY_PER_PAGE = 10
 
   def index
