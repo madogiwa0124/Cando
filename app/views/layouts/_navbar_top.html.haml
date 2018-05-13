@@ -8,5 +8,9 @@
     %a.navbar-brand{href: "#"} Cando
   .collapse.navbar-collapse.navbar-ex1-collapse
     %ul.nav.navbar-nav
-      %li= link_to t('activerecord.models.task')+t('common.index'), tasks_path
-      %li= link_to t('activerecord.models.user')+t('common.index'), users_path
+      - if current_user
+        %li= link_to t('activerecord.models.task')+t('common.index'), tasks_path
+        %li= link_to t('activerecord.models.user')+t('common.index'), users_path
+        %li= link_to 'ログアウト', logout_path, method: :post
+      - else
+        %li= link_to 'ログイン', login_path
