@@ -26,6 +26,8 @@ ja:
     new:
       title: ログイン
       submit: ログイン
+    destroy:
+      link: ログアウト
   common:
     back: 戻る
     index: 一覧
