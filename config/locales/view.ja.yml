@@ -22,6 +22,10 @@ ja:
       task_list: 担当タスク
     edit:
       title: ユーザー編集
+  user_sessions:
+    new:
+      title: ログイン
+      submit: ログイン
   common:
     back: 戻る
     index: 一覧
