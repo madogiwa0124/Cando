@@ -1,10 +1,10 @@
 require 'rails_helper'
 RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true do
-  let!(:current_user)  { FactoryBot.create(:user) }
+  let!(:current_user) { FactoryBot.create(:user) }
 
   before do
     visit login_path
-    fill_in User.human_attribute_name(:email),    with: current_user.email 
+    fill_in User.human_attribute_name(:email),    with: current_user.email
     fill_in User.human_attribute_name(:password), with: 'password'
     click_button I18n.t('user_sessions.new.submit')
   end
