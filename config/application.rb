@@ -14,6 +14,9 @@ module Cando
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
     config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
       g.test_framework :rspec,
         fixtures: true,
         view_specs: false,
