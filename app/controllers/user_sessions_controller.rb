@@ -1,18 +1,13 @@
 class UserSessionsController < ApplicationController
   def new
-    if current_user
-      redirect_to tasks_path
-    else
-      @user = User.new
-    end
+    redirect_to tasks_path if current_user
+    @user = User.new
   end
 
   def create
-    if @user = login(user_session_params[:email], user_session_params[:password])
-      redirect_back_or_to tasks_path, notice: I18n.t('message.login.success')
-    else
-      redirect_to login_path, notice: I18n.t('message.login.failed')
-    end
+    @user = login(user_session_params[:email], user_session_params[:password])
+    redirect_to login_path, notice: I18n.t('message.login.failed') unless @user
+    redirect_back_or_to tasks_path, notice: I18n.t('message.login.success')
   end
 
   def destroy
