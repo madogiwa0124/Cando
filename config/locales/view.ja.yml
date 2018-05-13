@@ -22,6 +22,8 @@ ja:
       task_list: 担当タスク
     edit:
       title: ユーザー編集
+    mypage:
+      title: マイページ
   user_sessions:
     new:
       title: ログイン
