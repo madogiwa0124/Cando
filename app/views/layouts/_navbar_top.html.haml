@@ -11,6 +11,6 @@
       - if current_user
         %li= link_to t('activerecord.models.task')+t('common.index'), tasks_path
         %li= link_to t('activerecord.models.user')+t('common.index'), users_path
-        %li= link_to 'ログアウト', logout_path, method: :post
+        %li= link_to t('user_sessions.destroy.link'), logout_path, method: :post
       - else
-        %li= link_to 'ログイン', login_path
+        %li= link_to t('user_sessions.new.submit'), login_path
