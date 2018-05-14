@@ -1,0 +1,20 @@
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
+
+%h1= @user.name
+
+%div.panel.panel-default
+  %div.panel-heading= label :user, t('.information')
+  %table.table
+    %tr
+      %td= label :user, :email
+      %td= @user.email
+    %tr
+      %td= label :user, :updated_at
+      %td= @user.updated_at
+    %tr
+      %td= label :user, :created_at
+      %td= @user.created_at
+
+= link_to t('common.edit'), edit_admin_user_path(@user), class: 'btn btn-warning'
+= link_to t('common.back'), :back, class: 'btn btn-default'
