@@ -10,28 +10,37 @@ RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: tr
   end
 
   describe '更新' do
-    let!(:user) { FactoryBot.create(:user) }
-    context '正常な入力値で更新した場合' do
-      before do
-        visit edit_user_path(user)
-        fill_in User.human_attribute_name(:name), with: 'edited'
-        click_button I18n.t('common.save')
+    context '自分自身を更新する場合' do
+      context '正常な入力値で更新した場合' do
+        before do
+          visit edit_user_path(current_user)
+          fill_in User.human_attribute_name(:name), with: 'edited'
+          click_button I18n.t('common.save')
+        end
+
+        it '更新されること' do
+          expect(User.find(current_user.id).name).to eq 'edited'
+        end
       end
 
-      it '更新されること' do
-        expect(User.find(user.id).name).to eq 'edited'
-      end
-    end
+        context '異常な入力値で更新した場合' do
+          before do
+            visit edit_user_path(current_user)
+            fill_in User.human_attribute_name(:name), with: ''
+            click_button I18n.t('common.save')
+          end
 
-    context '異常な入力値で更新した場合' do
-      before do
-        visit edit_user_path(user)
-        fill_in User.human_attribute_name(:name), with: ''
-        click_button I18n.t('common.save')
-      end
+          it '更新されないこと' do
+            expect(User.find(current_user.id).name).to eq user.name
+          end
+        end
 
-      it '更新されないこと' do
-        expect(User.find(user.id).name).to eq user.name
+    context '自分以外のユーザーを更新する場合'
+      let!(:user) { FactoryBot.create(:user) }
+      before { visit edit_user_path(user) }
+
+      it '詳細画面に遷移すること' do
+        expect(current_path).to eq user_path(user)
       end
     end
   end
