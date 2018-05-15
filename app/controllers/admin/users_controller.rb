@@ -3,7 +3,6 @@ module Admin
     before_action :require_login
 
     USER_DISPLAY_PER_PAGE = 10
-    TASK_DISPLAY_PER_PAGE = 8
 
     def index
       @users = User.all.page(params[:page]).per(USER_DISPLAY_PER_PAGE)
@@ -11,7 +10,6 @@ module Admin
 
     def show
       @user = User.find(params[:id])
-      @tasks = @user.tasks.page(params[:page]).per(TASK_DISPLAY_PER_PAGE)
     end
 
     def new
