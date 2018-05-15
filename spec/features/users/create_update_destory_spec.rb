@@ -23,19 +23,20 @@ RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: tr
         end
       end
 
-        context '異常な入力値で更新した場合' do
-          before do
-            visit edit_user_path(current_user)
-            fill_in User.human_attribute_name(:name), with: ''
-            click_button I18n.t('common.save')
-          end
-
-          it '更新されないこと' do
-            expect(User.find(current_user.id).name).to eq user.name
-          end
+      context '異常な入力値で更新した場合' do
+        before do
+          visit edit_user_path(current_user)
+          fill_in User.human_attribute_name(:name), with: ''
+          click_button I18n.t('common.save')
         end
 
-    context '自分以外のユーザーを更新する場合'
+        it '更新されないこと' do
+          expect(User.find(current_user.id).name).to eq current_user.name
+        end
+      end
+    end
+
+    context '自分以外のユーザーを更新する場合' do
       let!(:user) { FactoryBot.create(:user) }
       before { visit edit_user_path(user) }
 
