@@ -3,6 +3,14 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
   let!(:task1) { FactoryBot.create(:task, :low,    :done,  title: 'タイトル1', deadline: Time.current.since(1.day)) }
   let!(:task2) { FactoryBot.create(:task, :medium, :doing, title: 'タイトル2', deadline: Time.current.since(2.days)) }
   let!(:task3) { FactoryBot.create(:task, :high,   :todo,  title: 'タイトル3', deadline: Time.current.since(3.days)) }
+  let!(:current_user) { FactoryBot.create(:user) }
+
+  before do
+    visit login_path
+    fill_in User.human_attribute_name(:email),    with: current_user.email
+    fill_in User.human_attribute_name(:password), with: 'password'
+    click_button I18n.t('user_sessions.new.submit')
+  end
 
   describe 'タスク一覧' do
     before { visit tasks_path }
