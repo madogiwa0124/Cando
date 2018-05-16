@@ -12,17 +12,11 @@ ja:
     edit:
       title: タスク編集
   users:
-    index:
-      title: ユーザー一覧
-    new:
-      title: 新規ユーザー
     show:
       title: ユーザー詳細
       information: 各種情報
       task_list: 担当タスク
     edit:
-      title: ユーザー編集
-    mypage:
       title: マイページ
   user_sessions:
     new:
@@ -47,3 +41,14 @@ ja:
       previous: "前"
       next: "次"
       truncate: "..."
+  admin:
+    users:
+      index:
+        title: ユーザー一覧
+      new:
+        title: 新規ユーザー
+      show:
+        title: ユーザー詳細
+        information: 各種情報
+      edit:
+        title: ユーザー編集
