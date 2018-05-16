@@ -16,8 +16,5 @@
       %td= label :user, :created_at
       %td= @user.created_at
 
+= link_to t('common.edit'), edit_admin_user_path(@user), class: 'btn btn-warning'
 = link_to t('common.back'), :back, class: 'btn btn-default'
-
-%br
-%h3= t('.task_list')
-= render partial: 'task_list', locals: { tasks: @tasks }

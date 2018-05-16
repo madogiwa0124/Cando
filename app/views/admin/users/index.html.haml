@@ -21,10 +21,10 @@
           %td= l(user.updated_at, format: :long)
           %td= l(user.created_at, format: :long)
           %td
-            = link_to t('common.show'), user, class: 'btn btn-primary btn-xs'
-            = link_to t('common.edit'), edit_user_path(user), class: 'btn btn-warning btn-xs'
-            = link_to t('common.destroy'), user, method: :delete, class: 'btn btn-danger btn-xs'
+            = link_to t('common.show'), admin_user_path(user), class: 'btn btn-primary btn-xs'
+            = link_to t('common.edit'), edit_admin_user_path(user), class: 'btn btn-warning btn-xs'
+            = link_to t('common.destroy'), admin_user_path(user), method: :delete, class: 'btn btn-danger btn-xs'
 
-= link_to t('common.new') + t('activerecord.models.user'), new_user_path, class: 'btn btn-success'
+= link_to t('common.new') + t('activerecord.models.user'), new_admin_user_path, class: 'btn btn-success'
 
 = paginate @users
