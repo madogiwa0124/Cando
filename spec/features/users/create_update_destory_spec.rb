@@ -40,8 +40,8 @@ RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: tr
       let!(:user) { FactoryBot.create(:user) }
       before { visit edit_user_path(user) }
 
-      it '詳細画面に遷移すること' do
-        expect(current_path).to eq user_path(user)
+      it '自分のマイページに遷移すること' do
+        expect(page).to have_field User.human_attribute_name(:email), with: current_user.email
       end
     end
   end

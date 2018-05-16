@@ -9,13 +9,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    only_myself_redirect
+    @user = User.find(current_user.id)
   end
 
   def update
-    @user = User.find(params[:id])
-    only_myself_redirect
+    @user = User.find(current_user.id)
     if @user.update(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
@@ -24,10 +22,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def only_myself_redirect
-    redirect_to user_path(@user) if @user != current_user
-  end
 
   def user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation)
