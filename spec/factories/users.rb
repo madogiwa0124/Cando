@@ -6,7 +6,7 @@ FactoryBot.define do
     password_confirmation 'password'
 
     trait :admin do
-      role Role.find_by(code: :admin) 
+      role Role.find_by(code: :admin)
     end
   end
 end
