@@ -6,7 +6,7 @@ module Admin
     USER_DISPLAY_PER_PAGE = 10
 
     def index
-      @users = User.all.page(params[:page]).per(USER_DISPLAY_PER_PAGE)
+      @users = User.all.order(:id).page(params[:page]).per(USER_DISPLAY_PER_PAGE)
     end
 
     def show
@@ -48,7 +48,7 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation)
+      params.require(:user).permit(:email, :name, :password, :password_confirmation, :role_id)
     end
   end
 end
