@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   end
 
   def only_admin_user
-    !current_user.role.admin? if redirect_to root_path
+    p '================================='
+    p current_user.role
+    p current_user.role.admin?
+    p '================================='
+    redirect_to root_path unless current_user.role.admin?
   end
 end
