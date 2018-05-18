@@ -11,7 +11,7 @@
     = f.label :name
     = f.text_field :name, class: 'form-control'
   %div.form-group
-    = f.label :role
+    = f.label :role_id
     = f.collection_select :role_id, Role.all, :id, :name, {}, { class: 'form-control' }
   %div.form-group
     = f.label :password
