@@ -15,13 +15,6 @@ ActiveRecord::Schema.define(version: 2018_05_18_135528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "roles", force: :cascade do |t|
-    t.string "code", null: false
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -42,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_05_18_135528) do
     t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "role_id"
+    t.bigint "role_id", default: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
