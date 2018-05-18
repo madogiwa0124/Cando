@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: true do
-  let!(:current_user) { FactoryBot.create(:user) }
+  let!(:current_user) { FactoryBot.create(:user, :admin) }
 
   before do
     visit login_path
@@ -16,6 +16,7 @@ RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: tr
         visit new_admin_user_path
         fill_in User.human_attribute_name(:email),       with: user.email
         fill_in User.human_attribute_name(:name),        with: user.name
+        select  Role.find_by(code: :admin).name,         from: User.human_attribute_name(:role)
         fill_in User.human_attribute_name(:password),    with: user.password
         fill_in User.human_attribute_name(:password_confirmation), with: user.password_confirmation
       end
@@ -31,6 +32,7 @@ RSpec.describe 'ユーザーの登録・更新・削除', type: :feature, js: tr
         fill_in User.human_attribute_name(:email),       with: user.email
         fill_in User.human_attribute_name(:name),        with: ''
         fill_in User.human_attribute_name(:password),    with: user.password
+        select  Role.find_by(code: :admin).name,         from: User.human_attribute_name(:role)
         fill_in User.human_attribute_name(:password_confirmation), with: user.password_confirmation
       end
 
