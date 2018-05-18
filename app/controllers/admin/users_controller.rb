@@ -1,6 +1,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :require_login
+    before_action :only_admin_user
 
     USER_DISPLAY_PER_PAGE = 10
 
