@@ -20,6 +20,9 @@
     = f.label :priority
     = f.select :priority, Task.priorities_i18n.invert, {}, { class: 'form-control' }
   %div.form-group
+    = f.label :label
+    = text_field_tag 'task[label_list]', @task.label_list.join(','), { class: 'form-control' }
+  %div.form-group
     = f.label :deadline
     = f.date_field :deadline, class: 'form-control'
 
