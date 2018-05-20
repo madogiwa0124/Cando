@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     prepare_search_attr
     @tasks = Task.all
                  .order(order_string)
-                 .includes(:user)
+                 .includes(:user, :labels)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
   end
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     prepare_search_attr
     @tasks = Task.search(@search_attr)
                  .order(order_string)
-                 .includes(:user)
+                 .includes(:user, :labels)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
     render :index
@@ -36,6 +36,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.label_list.add(task_label_params[:label_list], parse: true)
     if @task.save
       redirect_to @task, notice: message('task', 'create')
     else
@@ -45,7 +46,9 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
+    @task.attributes = task_params
+    @task.label_list.add(task_label_params[:label_list], parse: true)
+    if @task.save
       redirect_to @task, notice: message('task', 'update')
     else
       render :edit
@@ -72,6 +75,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id)
+  end
+
+  def task_label_params
+    params.require(:task).permit(:label_list)
   end
 
   def order_params
