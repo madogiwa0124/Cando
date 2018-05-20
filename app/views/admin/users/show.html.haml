@@ -10,6 +10,9 @@
       %td= label :user, :email
       %td= @user.email
     %tr
+      %td= label :user, :role
+      %td= @user.role.name
+    %tr
       %td= label :user, :updated_at
       %td= @user.updated_at
     %tr

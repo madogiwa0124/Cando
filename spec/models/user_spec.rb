@@ -44,13 +44,23 @@ RSpec.describe User, type: :model do
         user.name = 'a' * 256
         is_expected.to eq false
       end
+
+      it '不正な権限' do
+        user.role_id = 999
+        is_expected.to eq false
+      end
     end
 
     context 'アソシエーション' do
-      let!(:user) { FactoryBot.create(:user) }
+      let!(:user) { FactoryBot.create(:user, :admin) }
       let!(:task) { FactoryBot.create(:task, user: user) }
+
       it '紐づくタスクが取得出来ること' do
         expect(user.tasks).not_to be_blank
+      end
+
+      it '紐づくロールが取得出来ること' do
+        expect(user.role).not_to be_blank
       end
     end
   end
