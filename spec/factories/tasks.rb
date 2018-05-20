@@ -24,5 +24,9 @@ FactoryBot.define do
     trait :done do
       status Task.statuses[:done]
     end
+
+    trait :with_label do
+      after(:build) { |task| task.label_list.add("test_label") }
+    end
   end
 end

@@ -52,6 +52,18 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe 'label' do
+    let!(:task) { FactoryBot.create(:task, :with_label) }
+
+    it 'ラベルが設定出来ること' do
+      expect { task.label_list.add("label") }.to change(task.label_list, :length).by(1)
+    end
+
+    it '設定されたラベルが取得出来ること' do
+      expect(task.label_list.present?).to eq true
+    end
+  end
+
   describe '.search' do
     let!(:task1) { FactoryBot.create(:task, title: 'タイトル_1') }
     let!(:task2) { FactoryBot.create(:task, title: 'タイトル_10', status: Task.statuses[:done]) }
