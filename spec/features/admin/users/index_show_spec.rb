@@ -3,7 +3,7 @@ RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
   let!(:user1) { FactoryBot.create(:user, name: 'test_user_1') }
   let!(:user2) { FactoryBot.create(:user, name: 'test_user_2') }
   let!(:user3) { FactoryBot.create(:user, name: 'test_user_3') }
-  let!(:current_user) { FactoryBot.create(:user) }
+  let!(:current_user) { FactoryBot.create(:user, :admin) }
 
   before do
     visit login_path
