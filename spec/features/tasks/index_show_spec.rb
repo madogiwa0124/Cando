@@ -13,16 +13,30 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
   end
 
   describe 'タスク一覧' do
-    before { visit tasks_path }
+ 
+    describe '一覧表示' do 
+      before { visit tasks_path }
 
-    it 'タスクの一覧が表示されること' do
-      expect(page).to have_content task1.title
-      expect(page).to have_content task2.title
-      expect(page).to have_content task3.title
+      it 'タスクの一覧が表示されること' do
+        expect(page).to have_content task1.title
+        expect(page).to have_content task2.title
+        expect(page).to have_content task3.title
+      end
+    end
+
+    describe 'ラベル' do
+      let!(:task_with_label) { FactoryBot.create(:task, :with_label) }  
+      before { visit tasks_path }
+  
+      it '紐づくラベルが表示されること' do
+        labels = task_with_label.labels.pluck(:name)
+        labels.each { |label| expect(page).to have_content label }
+      end
     end
 
     describe 'タスク検索' do
       before do
+        visit tasks_path
         fill_in Task.human_attribute_name(:title), with: task1.title
         select Task.statuses_i18n[task1.status], from: Task.human_attribute_name(:status)
         click_button I18n.t('common.search')
@@ -41,6 +55,8 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
     end
 
     describe 'タスクの並び替え' do
+      before { visit tasks_path }
+    
       it '期限の降順で並び替えが行えること' do
         within(all('thead th')[4]) do
           click_button '▼'
@@ -80,10 +96,16 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
   end
 
   describe 'タスク詳細' do
-    before { visit task_path(task1) }
+    let!(:task_with_label) { FactoryBot.create(:task, :with_label) }
+    before { visit task_path(task_with_label) }
 
     it '指定したタスクの詳細が表示されること' do
-      expect(page).to have_content task1.title
+      expect(page).to have_content task_with_label.title
+    end
+
+    it 'ラベルが表示されること' do
+      labels = task_with_label.labels.pluck(:name)
+      labels.each { |label| expect(page).to have_content label }
     end
   end
 end
