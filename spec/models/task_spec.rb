@@ -65,14 +65,14 @@ RSpec.describe Task, type: :model do
   end
 
   describe '.search' do
-    let!(:task1) { FactoryBot.create(:task, title: 'タイトル_1') }
+    let!(:task1) { FactoryBot.create(:task, :with_label, title: 'タイトル_1') }
     let!(:task2) { FactoryBot.create(:task, title: 'タイトル_10', status: Task.statuses[:done]) }
     let!(:task3) { FactoryBot.create(:task, title: 'タイトル_2') }
-    let!(:task4) { FactoryBot.create(:task, title: 'タイトル_11') }
+    let!(:task4) { FactoryBot.create(:task, :with_label, title: 'タイトル_11') }
 
     it '正しい検索結果となること※title like param AND status=param' do
-      attr = { title: task1.title, status: task1.status }
-      expect(Task.search(attr).pluck(:title)).to eq [task1.title, task4.title]
+      attr = { title: task1.title, status: task1.status, label_list: task1.label_list }
+      expect(Task.search(attr).pluck(:title)).to match_array [task4.title, task1.title]
     end
   end
 end
