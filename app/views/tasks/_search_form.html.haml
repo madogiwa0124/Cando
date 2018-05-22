@@ -11,4 +11,7 @@
     %div.form-group
       = label_tag :user, Task.human_attribute_name(:user)
       = collection_select :task, :user_id, User.all, :id, :name, { include_blank: true, selected: search_attr[:user_id] }, { class: 'form-control' }
+    %div.form-group
+      = label_tag :labels, t('activerecord.attributes.task.label')
+      = text_field_tag 'task[label_list]', search_attr[:label_list], class: 'form-control'
     = submit_tag t('common.search'), class: 'btn btn-default'
