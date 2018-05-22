@@ -12,6 +12,7 @@ ja:
         priority: 優先度
         deadline: 期限
         user: 担当者
+        label: ラベル
         label_list: ラベル
       user:
         id: ID
