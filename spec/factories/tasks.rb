@@ -26,7 +26,7 @@ FactoryBot.define do
     end
 
     trait :with_label do
-      after(:build) { |task| task.label_list.add("test_label") }
+      after(:build) { |task| task.label_list.add('test_label') }
     end
   end
 end
