@@ -69,8 +69,10 @@ class TasksController < ApplicationController
   end
 
   def prepare_search_attr
-    @search_attr = { title: '' }
+    @search_attr = { title: '', label_list: '' }
     @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
+    @search_attr[:label_list] = task_label_params[:label_list].split(',') if task_label_params[:label_list].present?
+    @search_attr
   end
 
   def task_params
