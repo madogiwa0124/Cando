@@ -11,7 +11,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
 
   describe 'タスクの登録' do
     let(:task) { FactoryBot.build(:task, :with_label) }
-  
+
     context '正常な入力値でタスクを登録した場合' do
       before do
         visit new_task_path

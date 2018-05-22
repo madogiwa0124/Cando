@@ -13,8 +13,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
   end
 
   describe 'タスク一覧' do
- 
-    describe '一覧表示' do 
+    describe '一覧表示' do
       before { visit tasks_path }
 
       it 'タスクの一覧が表示されること' do
@@ -25,9 +24,9 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
     end
 
     describe 'ラベル' do
-      let!(:task_with_label) { FactoryBot.create(:task, :with_label) }  
+      let!(:task_with_label) { FactoryBot.create(:task, :with_label) }
       before { visit tasks_path }
-  
+
       it '紐づくラベルが表示されること' do
         labels = task_with_label.labels.pluck(:name)
         labels.each { |label| expect(page).to have_content label }
@@ -56,7 +55,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
 
     describe 'タスクの並び替え' do
       before { visit tasks_path }
-    
+
       it '期限の降順で並び替えが行えること' do
         within(all('thead th')[4]) do
           click_button '▼'

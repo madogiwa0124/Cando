@@ -56,7 +56,7 @@ RSpec.describe Task, type: :model do
     let!(:task) { FactoryBot.create(:task, :with_label) }
 
     it 'ラベルが設定出来ること' do
-      expect { task.label_list.add("label") }.to change(task.label_list, :length).by(1)
+      expect { task.label_list.add('label') }.to change(task.label_list, :length).by(1)
     end
 
     it '設定されたラベルが取得出来ること' do
