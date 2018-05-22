@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  acts_as_taggable_on :labels
+
   enum status: { todo: 1, doing: 2, done: 3 }
   enum priority: { low: 1, medium: 2, high: 3 }
 
@@ -14,7 +16,10 @@ class Task < ApplicationRecord
   end
 
   def self.search(search_attr)
-    attr = search_attr.clone
-    where('title LIKE ?', "%#{attr.delete(:title)}%").where(attr)
+    attr = search_attr.clone.to_h
+    result = where('title LIKE ?', "%#{attr.delete(:title)}%")
+    result = tagged_with(attr.delete(:label_list)) if attr[:label_list].present?
+    result = result.where(attr) if attr.present?
+    result
   end
 end
