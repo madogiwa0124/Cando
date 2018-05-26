@@ -11,7 +11,7 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validate  :deadline_cannot_be_in_the_past, if: -> { deadline.present? }
 
-  scope :expired, -> { where('deadline <= ?', Date.today) }
+  scope :expired, -> { where('deadline <= ?', Time.zone.today) }
 
   def deadline_cannot_be_in_the_past
     errors.add(:deadline, 'は現在日付以降の日時を設定してください。') if deadline < Time.current.beginning_of_day
