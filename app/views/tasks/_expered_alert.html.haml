@@ -1,0 +1,5 @@
+%div.alert.alert-warning{ role: 'alert' }
+  =t 'message.tasks.expired'
+  %ul
+    - expired_tasks.each do |task|
+      %li= link_to task.title, task
