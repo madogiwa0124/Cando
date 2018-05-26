@@ -23,6 +23,19 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
       end
     end
 
+    describe '期限切れのアラート表示' do
+      let!(:expired_task) { FactoryBot.create(:task, title: 'タイトル_期限切れ', deadline: Time.current, user: current_user) }
+      before { Timecop.travel(5.day.since) }
+      after { Timecop.return }
+
+      it '期限切れタスクがアラートで表示されること' do
+        visit tasks_path
+        within find('div.alert.alert-warning') do
+          expect(page).to have_content expired_task.title
+        end
+      end
+    end
+
     describe 'ラベル' do
       let!(:task_with_label) { FactoryBot.create(:task, :with_label) }
       before { visit tasks_path }

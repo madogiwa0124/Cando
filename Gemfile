@@ -53,6 +53,7 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem 'pry-rails'
   gem 'better_errors'
+  gem 'timecop'
 end
 
 group :development do
