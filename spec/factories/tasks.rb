@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :task do
+    association :user, factory: :user
+
     title 'Task title'
     description 'Task description'
     deadline Time.current.since(1.day)

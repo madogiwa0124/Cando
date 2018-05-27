@@ -1,11 +1,13 @@
 ja:
   message:
+    tasks:
+      expired: 期限切れのタスクがあります。
     common:
-      create: 'の作成に成功しました。'
-      update: 'の更新に成功しました。'
-      destroy: 'の削除に成功しました。'
+      create: の作成に成功しました。
+      update: の更新に成功しました。
+      destroy: の削除に成功しました。
     login:
-      success: 'ログインに成功しました。'
-      failed: 'ログインに失敗しました。アカウント情報をご確認ください。'
+      success: ログインに成功しました。
+      failed: ログインに失敗しました。アカウント情報をご確認ください。
     logout:
-      success: 'ログアウトに成功しました。'
+      success: ログアウトに成功しました。

@@ -5,6 +5,7 @@ class TasksController < ApplicationController
 
   def index
     prepare_search_attr
+    @expired_tasks = Task.expired.where(user_id: current_user.id)
     @tasks = Task.all
                  .order(order_string)
                  .includes(:user, :labels)
@@ -14,6 +15,7 @@ class TasksController < ApplicationController
 
   def search
     prepare_search_attr
+    @expired_tasks = Task.expired.where(user_id: current_user.id)
     @tasks = Task.search(@search_attr)
                  .order(order_string)
                  .includes(:user, :labels)
