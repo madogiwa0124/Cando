@@ -1,5 +1,7 @@
 - if notice
   %div.alert.alert-info{ role: 'alert' }= notice
+= render partial: 'expered_alert', locals: { expired_tasks: @expired_tasks } if @expired_tasks.present?
+
 %h1= t '.title'
 = render partial: 'search_form', locals: { search_attr: @search_attr }
 
