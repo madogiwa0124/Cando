@@ -57,7 +57,7 @@ RSpec.describe Task, type: :model do
         expect(task.user).to eq user
       end
 
-      it '作成者に紐づくユーザーが取得できること'  do
+      it '作成者に紐づくユーザーが取得できること' do
         expect(task.owner).to eq owner
       end
     end
