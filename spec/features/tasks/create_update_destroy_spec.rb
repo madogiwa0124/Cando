@@ -26,6 +26,11 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
       it 'タスクが登録されること' do
         expect { click_button I18n.t('common.save') }.to change(Task, :count).by(1)
       end
+
+      it 'ownerがログインユーザーと一致すること' do
+        click_button I18n.t('common.save')
+        expect(Task.last.owner).to eq current_user  
+      end
     end
 
     context '異常な入力値でタスクを登録した場合' do
@@ -45,7 +50,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
   end
 
   describe 'タスクの更新' do
-    let!(:task) { FactoryBot.create(:task) }
+    let!(:task) { FactoryBot.create(:task, owner: current_user) }
     context '正常な入力値でタスクを登録した場合' do
       before do
         visit edit_task_path(task)
@@ -73,7 +78,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
   end
 
   describe 'タスクの削除' do
-    let!(:task) { FactoryBot.create(:task) }
+    let!(:task) { FactoryBot.create(:task, owner: current_user) }
     before { visit tasks_path }
 
     it 'タスクが削除されること' do

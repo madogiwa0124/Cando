@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe '登録したタスクを確認する', type: :feature, js: true do
-  let!(:task1) { FactoryBot.create(:task, :low,    :done,  title: 'タイトル1', deadline: Time.current.since(1.day)) }
-  let!(:task2) { FactoryBot.create(:task, :medium, :doing, title: 'タイトル2', deadline: Time.current.since(2.days)) }
-  let!(:task3) { FactoryBot.create(:task, :high,   :todo,  title: 'タイトル3', deadline: Time.current.since(3.days)) }
   let!(:current_user) { FactoryBot.create(:user) }
+  let!(:task1) { FactoryBot.create(:task, :low,    :done,  title: 'タイトル1', deadline: Time.current.since(1.day),  owner: current_user) }
+  let!(:task2) { FactoryBot.create(:task, :medium, :doing, title: 'タイトル2', deadline: Time.current.since(2.days), owner: current_user) }
+  let!(:task3) { FactoryBot.create(:task, :high,   :todo,  title: 'タイトル3', deadline: Time.current.since(3.days), owner: current_user) }
 
   before do
     visit login_path
@@ -24,7 +24,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
     end
 
     describe '期限切れのアラート表示' do
-      let!(:expired_task) { FactoryBot.create(:task, title: 'タイトル_期限切れ', deadline: Time.current, user: current_user) }
+      let!(:expired_task) { FactoryBot.create(:task, title: 'タイトル_期限切れ', deadline: Time.current, user: current_user, owner: current_user) }
       before { Timecop.travel(1.day.since) }
       after { Timecop.return }
 
@@ -37,7 +37,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
     end
 
     describe 'ラベル' do
-      let!(:task_with_label) { FactoryBot.create(:task, :with_label) }
+      let!(:task_with_label) { FactoryBot.create(:task, :with_label, owner: current_user) }
       before { visit tasks_path }
 
       it '紐づくラベルが表示されること' do
@@ -108,7 +108,7 @@ RSpec.describe '登録したタスクを確認する', type: :feature, js: true 
   end
 
   describe 'タスク詳細' do
-    let!(:task_with_label) { FactoryBot.create(:task, :with_label) }
+    let!(:task_with_label) { FactoryBot.create(:task, :with_label, owner: current_user) }
     before { visit task_path(task_with_label) }
 
     it '指定したタスクの詳細が表示されること' do

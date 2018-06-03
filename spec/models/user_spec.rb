@@ -53,7 +53,7 @@ RSpec.describe User, type: :model do
 
     context 'アソシエーション' do
       let!(:user) { FactoryBot.create(:user, :admin) }
-      let!(:task) { FactoryBot.create(:task, user: user) }
+      let!(:task) { FactoryBot.create(:task, user: user, owner: user) }
 
       it '紐づくタスクが取得出来ること' do
         expect(user.tasks).not_to be_blank

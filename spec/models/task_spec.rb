@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'Task Modeling' do
-    let(:task) { FactoryBot.build(:task) }
+    let!(:user) { FactoryBot.create(:user) }
+    let(:task) { FactoryBot.build(:task, owner: user) }
     subject { task.valid? }
 
     context 'エラーとならない場合' do
@@ -41,19 +42,30 @@ RSpec.describe Task, type: :model do
         task.deadline = Time.current.ago(1.day)
         is_expected.to eq false
       end
+
+      it '作成者が未設定' do
+        task.owner_id = nil
+        is_expected.to eq false
+      end
     end
 
     context 'アソシエーション' do
       let!(:user) { FactoryBot.create(:user) }
-      let(:task) { FactoryBot.build(:task, user: user) }
+      let!(:owner) { FactoryBot.create(:user) }
+      let(:task) { FactoryBot.build(:task, user: user, owner: owner) }
       it '紐づくユーザーが取得出来ること' do
-        expect(task.user).not_to be_blank
+        expect(task.user).to eq user
+      end
+
+      it '作成者に紐づくユーザーが取得できること'  do
+        expect(task.owner).to eq owner
       end
     end
   end
 
   describe 'label' do
-    let!(:task) { FactoryBot.create(:task, :with_label) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create(:task, :with_label, owner: user) }
 
     it 'ラベルが設定出来ること' do
       expect { task.label_list.add('label') }.to change(task.label_list, :length).by(1)
@@ -65,10 +77,11 @@ RSpec.describe Task, type: :model do
   end
 
   describe '.search' do
-    let!(:task1) { FactoryBot.create(:task, :with_label, title: 'タイトル_1') }
-    let!(:task2) { FactoryBot.create(:task, title: 'タイトル_10', status: Task.statuses[:done]) }
-    let!(:task3) { FactoryBot.create(:task, title: 'タイトル_2') }
-    let!(:task4) { FactoryBot.create(:task, :with_label, title: 'タイトル_11') }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:task1) { FactoryBot.create(:task, :with_label, title: 'タイトル_1', owner: user) }
+    let!(:task2) { FactoryBot.create(:task, title: 'タイトル_10', status: Task.statuses[:done], owner: user) }
+    let!(:task3) { FactoryBot.create(:task, title: 'タイトル_2', owner: user) }
+    let!(:task4) { FactoryBot.create(:task, :with_label, title: 'タイトル_11', owner: user) }
 
     it '正しい検索結果となること※title like param AND status=param' do
       attr = { title: task1.title, status: task1.status, label_list: task1.label_list }
