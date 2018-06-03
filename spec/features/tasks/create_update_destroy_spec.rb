@@ -29,7 +29,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
 
       it 'ownerがログインユーザーと一致すること' do
         click_button I18n.t('common.save')
-        expect(Task.last.owner).to eq current_user  
+        expect(Task.last.owner).to eq current_user
       end
     end
 
