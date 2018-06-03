@@ -5,6 +5,7 @@ class Task < ApplicationRecord
   enum priority: { low: 1, medium: 2, high: 3 }
 
   belongs_to :user, required: false
+  belongs_to :owner, class_name: 'User'
 
   validates :title,    presence: true
   validates :status,   presence: true
