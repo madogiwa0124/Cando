@@ -38,6 +38,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params_with_out_label_list)
+    @task.owner = current_user
     @task.label_list.add(prepare_params[:label_list], parse: true)
     if @task.save
       redirect_to @task, notice: message('task', 'create')

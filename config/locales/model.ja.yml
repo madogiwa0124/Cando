@@ -14,6 +14,7 @@ ja:
         user: 担当者
         label: ラベル
         label_list: ラベル
+        owner: 作成者
       user:
         id: ID
         name: 名前
