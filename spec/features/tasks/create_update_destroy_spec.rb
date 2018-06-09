@@ -78,7 +78,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
   end
 
   describe 'タスクの削除' do
-    let!(:task) { FactoryBot.create(:task, owner: current_user) }
+    let!(:task) { FactoryBot.create(:task, user: current_user, owner: current_user) }
     before { visit tasks_path }
 
     it 'タスクが削除されること' do

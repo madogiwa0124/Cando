@@ -6,11 +6,14 @@ class TasksController < ApplicationController
   def index
     prepare_search_attr
     @expired_tasks = Task.expired.where(user_id: current_user.id)
-    @tasks = Task.all
-                 .order(order_string)
-                 .includes(:user, :labels)
-                 .page(params[:page])
-                 .per(TASKS_DISPLAY_PER_PAGE)
+    @tasks = if current_user.group.present?
+      Task.with_group(current_user.group)
+    else
+      current_user.tasks
+    end
+    
+    @tasks = Kaminari.paginate_array(@tasks.order(order_string).includes(:labels))
+                     .page(params[:page]).per(TASKS_DISPLAY_PER_PAGE)
   end
 
   def search
@@ -67,7 +70,7 @@ class TasksController < ApplicationController
   private
 
   def order_string
-    return 'created_at DESC' unless params.key?(:order)
+    return 'tasks.created_at DESC' unless params.key?(:order)
     order_params.to_h.map { |key, val| "#{key} #{val.upcase}" }.join(',')
   end
 
