@@ -27,7 +27,7 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      @user.group = Group.find(params[:user][:group]) if params[:user][:group].present?
+      prepare_group
       if @user.save
         redirect_to admin_user_path(@user), notice: message('user', 'create')
       else
@@ -37,7 +37,7 @@ module Admin
 
     def update
       @user = User.find(params[:id])
-      @user.group = Group.find(params[:user][:group]) if params[:user][:group].present?
+      prepare_group
       if @user.update(user_params)
         redirect_to admin_user_path(@user), notice: message('user', 'update')
       else
@@ -52,6 +52,14 @@ module Admin
     end
 
     private
+
+    def prepare_group
+      if params[:user][:group].present?
+        @user.group = Group.find(params[:user][:group])
+      else
+        @user.user_group&.destroy
+      end
+    end
 
     def user_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation, :role_id)

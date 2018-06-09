@@ -15,7 +15,7 @@
     = f.collection_select :role_id, Role.all, :id, :name, {}, { class: 'form-control' }
   %div.form-group
     = f.label :group
-    = f.collection_select :group, Group.all, :id, :name, { prompt: '' }, { class: 'form-control' }
+    = f.collection_select :group, Group.all, :id, :name, { include_blank: true }, { class: 'form-control' }
   %div.form-group
     = f.label :password
     = f.password_field :password, class: 'form-control'
