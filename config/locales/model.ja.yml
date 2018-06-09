@@ -4,6 +4,7 @@ ja:
       task: タスク
       user: ユーザー
       role: ロール
+      group: グループ
     attributes:
       task:
         title: タイトル
@@ -30,6 +31,11 @@ ja:
       role:
         code: コード
         name: 名前
+      group:
+        id: ID
+        name: 名前
+        created_at: 登録日
+        updated_at: 更新日
   enums:
     task:
       status:

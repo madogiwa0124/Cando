@@ -1,0 +1,20 @@
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
+
+%h1= t '.title'
+
+%div.panel.panel-default
+  %div.panel-heading= label :group, t('.information')
+  %table.table
+    %tr
+      %td= label :group, :name
+      %td= @group.name
+    %tr
+      %td= label :group, :updated_at
+      %td= @group.updated_at
+    %tr
+      %td= label :group, :created_at
+      %td= @group.created_at
+
+= link_to t('common.edit'), edit_admin_group_path(@group), class: 'btn btn-warning'
+= link_to t('common.back'), :back, class: 'btn btn-default'
