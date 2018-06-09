@@ -54,13 +54,19 @@ RSpec.describe User, type: :model do
     context 'アソシエーション' do
       let!(:user) { FactoryBot.create(:user, :admin) }
       let!(:task) { FactoryBot.create(:task, user: user, owner: user) }
+      let!(:group) { FactoryBot.create(:group) }
+      let!(:user_group) { FactoryBot.create(:user_group, group: group, user: user) }
 
       it '紐づくタスクが取得出来ること' do
-        expect(user.tasks).not_to be_blank
+        expect(user.tasks.first).to eq task
       end
 
       it '紐づくロールが取得出来ること' do
         expect(user.role).not_to be_blank
+      end
+
+      it '紐づくグループが取得できること' do
+        expect(user.group).to eq group
       end
     end
   end
