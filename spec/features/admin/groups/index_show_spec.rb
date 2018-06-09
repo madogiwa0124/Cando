@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
+RSpec.describe 'グループ 一覧・詳細', type: :feature, js: true do
   let!(:group1) { FactoryBot.create(:group, name: 'test_group_1') }
   let!(:group2) { FactoryBot.create(:group, name: 'test_group_2') }
   let!(:group3) { FactoryBot.create(:group, name: 'test_group_3') }
@@ -23,10 +23,16 @@ RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
   end
 
   describe '詳細' do
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:user_group) { FactoryBot.create(:user_group, group: group1, user: user) }
     before { visit admin_group_path(group1) }
 
     it '詳細が表示されること' do
       expect(page).to have_content group1.name
+    end
+
+    it '紐づくユーザーが表示されること' do
+      expect(page).to have_content user.name
     end
   end
 end
