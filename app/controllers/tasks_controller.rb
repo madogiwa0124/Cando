@@ -6,13 +6,7 @@ class TasksController < ApplicationController
   def index
     prepare_search_attr
     @expired_tasks = Task.expired.where(user_id: current_user.id)
-    @tasks = if current_user.group.present?
-      Task.with_group(current_user.group)
-    else
-      current_user.tasks
-    end
-    
-    @tasks = Kaminari.paginate_array(@tasks.order(order_string).includes(:labels))
+    @tasks = Kaminari.paginate_array(prepare_tasks)
                      .page(params[:page]).per(TASKS_DISPLAY_PER_PAGE)
   end
 
@@ -68,6 +62,14 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def prepare_tasks
+    if current_user.group.present?
+      Task.with_group(current_user.group)
+    else
+      current_user.tasks
+    end.order(order_string).includes(:labels)
+  end
 
   def order_string
     return 'tasks.created_at DESC' unless params.key?(:order)
