@@ -7,6 +7,9 @@
   %div.panel-heading= label :user, t('.information')
   %table.table
     %tr
+      %td= label :user, :group
+      %td= @user.group&.name
+    %tr
       %td= label :user, :email
       %td= @user.email
     %tr
