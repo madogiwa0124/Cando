@@ -15,6 +15,6 @@
     %tr
       %td= label :group, :created_at
       %td= @group.created_at
-
+= render 'user_list', group: @group if @group.users.present?
 = link_to t('common.edit'), edit_admin_group_path(@group), class: 'btn btn-warning'
 = link_to t('common.back'), :back, class: 'btn btn-default'
