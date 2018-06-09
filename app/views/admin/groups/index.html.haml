@@ -1,0 +1,28 @@
+- if notice
+  %div.alert.alert-info{ role: 'alert' }= notice
+%h1= t '.title'
+
+%div.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
+      %tr
+        %th= Group.human_attribute_name(:id)
+        %th= Group.human_attribute_name(:name)
+        %th= Group.human_attribute_name(:updated_at)
+        %th= Group.human_attribute_name(:created_at)
+        %th Actions
+    %tbody
+      - @groups.each do |group|
+        %tr
+          %td= group.id
+          %td= group.name
+          %td= l(group.updated_at, format: :long)
+          %td= l(group.created_at, format: :long)
+          %td
+            = link_to t('common.show'), admin_group_path(group), class: 'btn btn-primary btn-xs'
+            = link_to t('common.edit'), edit_admin_group_path(group), class: 'btn btn-warning btn-xs'
+            = link_to t('common.destroy'), admin_group_path(group), method: :delete, class: 'btn btn-danger btn-xs'
+
+= link_to t('common.new') + t('activerecord.models.group'), new_admin_group_path, class: 'btn btn-success'
+
+= paginate @groups
