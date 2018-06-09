@@ -23,6 +23,7 @@ module Admin
 
     def create
       @user = User.new(user_params)
+      @user.group = Group.find(params[:user][:group])
       if @user.save
         redirect_to admin_user_path(@user), notice: message('user', 'create')
       else
@@ -32,6 +33,7 @@ module Admin
 
     def update
       @user = User.find(params[:id])
+      @user.group = Group.find(params[:user][:group])
       if @user.update(user_params)
         redirect_to admin_user_path(@user), notice: message('user', 'update')
       else
