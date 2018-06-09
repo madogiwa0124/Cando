@@ -27,6 +27,7 @@ ja:
         created_at: 登録日
         updated_at: 更新日
         password: パスワード
+        group: グループ
         password_confirmation: パスワード(確認)
       role:
         code: コード
