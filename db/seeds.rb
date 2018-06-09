@@ -4,7 +4,7 @@
 end
 
 1.times do |n|
-  FactoryBot.create(:user, name: "admin_user", email: 'administrater@email.com')
+  FactoryBot.create(:user, :admin, name: "admin_user", email: 'administrater@email.com')
 end
 
 100.times do |n|
