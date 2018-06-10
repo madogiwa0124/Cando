@@ -28,7 +28,9 @@ class Task < ApplicationRecord
   end
 
   def editable?(target_user)
-    if target_user.group.present?
+    if target_user.role.admin?
+      true      
+    elsif target_user.group.present?
       user.group == target_user.group
     else
       user == target_user

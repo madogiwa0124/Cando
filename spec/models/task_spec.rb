@@ -108,4 +108,49 @@ RSpec.describe Task, type: :model do
       expect(Task.with_group(user1.group).pluck(:title)).to match_array [task1.title, task3.title]
     end
   end
+
+  describe '#editable?' do
+    let!(:user1) { FactoryBot.create(:user) }
+    let!(:user2) { FactoryBot.create(:user) }
+    let!(:user3) { FactoryBot.create(:user) }
+    let!(:user4) { FactoryBot.create(:user) }
+    let!(:admin_user) { FactoryBot.create(:user, :admin) }
+    let!(:group1) { FactoryBot.create(:group) }
+    let!(:group2) { FactoryBot.create(:group) }
+    let!(:user_group1) { FactoryBot.create(:user_group, group: group1, user: user1) }
+    let!(:user_group2) { FactoryBot.create(:user_group, group: group1, user: user3) }
+    let!(:user_group3) { FactoryBot.create(:user_group, group: group2, user: user2) }
+    let!(:task1) { FactoryBot.create(:task, title: 'タイトル_1', user: user1, owner: user1) }
+    let!(:task2) { FactoryBot.create(:task, title: 'タイトル_2', user: user2, owner: user2) }
+    let!(:task3) { FactoryBot.create(:task, title: 'タイトル_3', user: user3, owner: user3) }
+    let!(:task4) { FactoryBot.create(:task, title: 'タイトル_4', user: user4, owner: user4) }
+
+    context '紐づくユーザーが管理者の場合' do
+      it 'すべてのタスクが編集可能なこと' do
+        expect(task1.editable?(admin_user)).to eq true
+        expect(task2.editable?(admin_user)).to eq true
+        expect(task3.editable?(admin_user)).to eq true
+        expect(task4.editable?(admin_user)).to eq true
+      end  
+    end
+    
+    context '紐づくユーザーがグループに属している場合' do
+      it '同じグループのタスクが編集出来ること' do
+        expect(task1.editable?(user1)).to eq true
+        expect(task3.editable?(user1)).to eq true
+      end
+      it '違うグループのタスクが編集出来ないこと' do
+        expect(task2.editable?(user1)).to eq false
+      end
+    end
+
+    context '紐づくユーザーがグループに所属していない場合' do
+      it '自分のタスクが編集出来ること' do
+        expect(task4.editable?(user4)).to eq true
+      end
+      it '他者のタスクが編集出来ないこと' do
+        expect(task1.editable?(user4)).to eq false
+      end      
+    end
+  end
 end
