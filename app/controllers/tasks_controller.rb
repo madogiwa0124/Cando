@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_login
+  before_action :only_same_group_editable, only: [:edit, :update, :destroy]
 
   TASKS_DISPLAY_PER_PAGE = 10
 
@@ -15,7 +16,7 @@ class TasksController < ApplicationController
     @expired_tasks = Task.expired.where(user_id: current_user.id)
     @tasks = Task.search(@search_attr)
                  .order(order_string)
-                 .includes(:user, :labels)
+                 .includes(:labels, user: :group)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
     render :index
@@ -86,6 +87,13 @@ class TasksController < ApplicationController
     @search_attr = { title: '', label_list: [] }
     @search_attr = prepare_params if params.key? :task
     @search_attr
+  end
+
+  def only_same_group_editable
+    unless Task.find(params[:id]).editable?(current_user)
+      redirect_to tasks_path
+      return
+    end
   end
 
   def task_params_with_out_label_list
