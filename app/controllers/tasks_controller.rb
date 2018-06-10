@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_login
-  before_action :only_same_group_editable, only: [:edit, :update, :destroy]
+  before_action :only_same_group_editable, only: %i[edit update destroy]
 
   TASKS_DISPLAY_PER_PAGE = 10
 
@@ -90,10 +90,7 @@ class TasksController < ApplicationController
   end
 
   def only_same_group_editable
-    unless Task.find(params[:id]).editable?(current_user)
-      redirect_to tasks_path
-      return
-    end
+    redirect_to tasks_path unless Task.find(params[:id]).editable?(current_user)
   end
 
   def task_params_with_out_label_list
