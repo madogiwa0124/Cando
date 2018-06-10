@@ -26,4 +26,12 @@ class Task < ApplicationRecord
     result = result.where(attr) if attr.present?
     result
   end
+
+  def editable?(target_user)
+    if target_user.group.present?
+      user.group == target_user.group
+    else
+      user == target_user
+    end
+  end
 end
