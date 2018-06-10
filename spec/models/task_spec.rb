@@ -131,9 +131,9 @@ RSpec.describe Task, type: :model do
         expect(task2.editable?(admin_user)).to eq true
         expect(task3.editable?(admin_user)).to eq true
         expect(task4.editable?(admin_user)).to eq true
-      end  
+      end
     end
-    
+
     context '紐づくユーザーがグループに属している場合' do
       it '同じグループのタスクが編集出来ること' do
         expect(task1.editable?(user1)).to eq true
@@ -150,7 +150,7 @@ RSpec.describe Task, type: :model do
       end
       it '他者のタスクが編集出来ないこと' do
         expect(task1.editable?(user4)).to eq false
-      end      
+      end
     end
   end
 end

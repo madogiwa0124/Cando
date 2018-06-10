@@ -81,7 +81,7 @@ RSpec.describe 'タスクの登録・更新・削除', type: :feature, js: true 
       let!(:group) { FactoryBot.create(:group) }
       let!(:user_group) { FactoryBot.create(:user_group, group: group, user: user) }
       let!(:other_task) { FactoryBot.create(:task, title: 'タイトル_1', user: user, owner: user) }
-      
+
       it '編集画面に遷移できないこと' do
         expect(current_path).to eq tasks_path
       end
