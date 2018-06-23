@@ -1,0 +1,19 @@
+%div.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
+      %tr
+        %th= User.human_attribute_name(:id)
+        %th= User.human_attribute_name(:name)
+        %th= User.human_attribute_name(:email)
+        %th= User.human_attribute_name(:role)
+        %th Actions
+    %tbody
+      - group.users.each do |user|
+        %tr
+          %td= user.id
+          %td= user.name
+          %td= user.email
+          %td= user.role.name
+          %td
+            = link_to t('common.show'), admin_user_path(user), class: 'btn btn-primary btn-xs'
+            = link_to t('common.edit'), edit_admin_user_path(user), class: 'btn btn-warning btn-xs'

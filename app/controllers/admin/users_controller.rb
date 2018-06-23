@@ -6,7 +6,11 @@ module Admin
     USER_DISPLAY_PER_PAGE = 10
 
     def index
-      @users = User.all.order(:id).page(params[:page]).per(USER_DISPLAY_PER_PAGE)
+      @users = User.all
+                   .includes(:group, :user_group)
+                   .order(:id)
+                   .page(params[:page])
+                   .per(USER_DISPLAY_PER_PAGE)
     end
 
     def show
@@ -23,6 +27,7 @@ module Admin
 
     def create
       @user = User.new(user_params)
+      prepare_group
       if @user.save
         redirect_to admin_user_path(@user), notice: message('user', 'create')
       else
@@ -32,6 +37,7 @@ module Admin
 
     def update
       @user = User.find(params[:id])
+      prepare_group
       if @user.update(user_params)
         redirect_to admin_user_path(@user), notice: message('user', 'update')
       else
@@ -46,6 +52,14 @@ module Admin
     end
 
     private
+
+    def prepare_group
+      if params[:user][:group].present?
+        @user.group = Group.find(params[:user][:group])
+      else
+        @user.user_group&.destroy
+      end
+    end
 
     def user_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation, :role_id)
