@@ -1,0 +1,6 @@
+%h1= t '.title'
+
+= render 'form'
+%br
+= link_to t('common.show'), admin_group_path(@group), class: 'btn btn-info'
+= link_to t('common.back'), :back, class: 'btn btn-default'

@@ -41,6 +41,8 @@ gem 'enum_help'
 gem 'kaminari'
 gem 'jquery-rails'
 gem 'sorcery'
+gem 'active_hash'
+gem 'acts-as-taggable-on'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +53,7 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem 'pry-rails'
   gem 'better_errors'
+  gem 'timecop'
 end
 
 group :development do

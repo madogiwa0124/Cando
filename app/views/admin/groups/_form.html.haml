@@ -1,0 +1,11 @@
+= form_for [:admin, @group] do |f|
+  - if @group.errors.any?
+    %div.alert.alert-danger{ role: 'alert' }
+      %ul
+        - @group.errors.full_messages.each do |message|
+          %li= message
+  %div.form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .actions
+    = f.submit t('common.save'), class: 'btn btn-primary'

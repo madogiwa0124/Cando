@@ -3,7 +3,7 @@ RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
   let!(:user1) { FactoryBot.create(:user, name: 'test_user_1') }
   let!(:user2) { FactoryBot.create(:user, name: 'test_user_2') }
   let!(:user3) { FactoryBot.create(:user, name: 'test_user_3') }
-  let!(:current_user) { FactoryBot.create(:user) }
+  let!(:current_user) { FactoryBot.create(:user, :admin) }
 
   before do
     visit login_path
@@ -23,7 +23,7 @@ RSpec.describe 'ユーザー 一覧・詳細', type: :feature, js: true do
   end
 
   describe '詳細' do
-    let!(:task) { FactoryBot.create(:task, user: user1) }
+    let!(:task) { FactoryBot.create(:task, user: user1, owner: user1) }
     before { visit admin_user_path(user1) }
 
     it '詳細が表示されること' do

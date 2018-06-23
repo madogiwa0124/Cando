@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :task do
+    association :user, factory: :user
+
     title 'Task title'
     description 'Task description'
     deadline Time.current.since(1.day)
@@ -23,6 +25,10 @@ FactoryBot.define do
     end
     trait :done do
       status Task.statuses[:done]
+    end
+
+    trait :with_label do
+      after(:build) { |task| task.label_list.add('test_label') }
     end
   end
 end

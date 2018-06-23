@@ -7,8 +7,10 @@
     %thead
       %tr
         %th= User.human_attribute_name(:id)
+        %th= User.human_attribute_name(:group)
         %th= User.human_attribute_name(:name)
         %th= User.human_attribute_name(:email)
+        %th= User.human_attribute_name(:role)
         %th= User.human_attribute_name(:updated_at)
         %th= User.human_attribute_name(:created_at)
         %th Actions
@@ -16,8 +18,10 @@
       - @users.each do |user|
         %tr
           %td= user.id
+          %td= user.group&.name
           %td= user.name
           %td= user.email
+          %td= user.role.name
           %td= l(user.updated_at, format: :long)
           %td= l(user.created_at, format: :long)
           %td

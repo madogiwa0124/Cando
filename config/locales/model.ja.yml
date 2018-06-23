@@ -3,6 +3,8 @@ ja:
     models:
       task: タスク
       user: ユーザー
+      role: ロール
+      group: グループ
     attributes:
       task:
         title: タイトル
@@ -11,16 +13,30 @@ ja:
         priority: 優先度
         deadline: 期限
         user: 担当者
+        label: ラベル
+        label_list: ラベル
+        owner: 作成者
       user:
         id: ID
         name: 名前
         email: メールアドレス
+        role: 権限
+        role_id: 権限
         crypted_password: パスワード(暗号化)
         salt: ソルト
         created_at: 登録日
         updated_at: 更新日
         password: パスワード
+        group: グループ
         password_confirmation: パスワード(確認)
+      role:
+        code: コード
+        name: 名前
+      group:
+        id: ID
+        name: 名前
+        created_at: 登録日
+        updated_at: 更新日
   enums:
     task:
       status:
@@ -31,3 +47,7 @@ ja:
         low: 低
         medium: 中
         high: 高
+    role:
+      code:
+        admin: '管理者'
+        staff: '担当者'

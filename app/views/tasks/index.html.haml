@@ -1,5 +1,7 @@
 - if notice
   %div.alert.alert-info{ role: 'alert' }= notice
+= render partial: 'expered_alert', locals: { expired_tasks: @expired_tasks } if @expired_tasks.present?
+
 %h1= t '.title'
 = render partial: 'search_form', locals: { search_attr: @search_attr }
 
@@ -21,6 +23,8 @@
           = Task.human_attribute_name(:deadline)
           = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'asc' }
           = render partial: 'order_form', locals: { target: 'deadline', search_attr: @search_attr, order: 'desc' }
+        %th
+          = t('activerecord.attributes.task.label')
         %th Actions
     %tbody
       - @tasks.each do |task|
@@ -30,9 +34,13 @@
           %td= task.status_i18n
           %td= task.priority_i18n
           %td= task.deadline ? l(task.deadline.to_date) : t('common.notset')
+          %td
+            - task.labels.pluck(:name).each do |label|
+              %span.label.label-info= label
           %td 
             = link_to t('common.show'), task, class: 'btn btn-primary btn-xs'
-            = link_to t('common.edit'), edit_task_path(task), class: 'btn btn-warning btn-xs'
-            = link_to t('common.destroy'), task, method: :delete, class: 'btn btn-danger btn-xs'
+            - if task.editable?(current_user)
+              = link_to t('common.edit'), edit_task_path(task), class: 'btn btn-warning btn-xs'
+              = link_to t('common.destroy'), task, method: :delete, class: 'btn btn-danger btn-xs'
 %div.right= link_to t('common.new') + t('activerecord.models.task'), new_task_path, class: 'btn btn-success'
 = paginate @tasks
