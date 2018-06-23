@@ -27,6 +27,9 @@
       %td 
         - @task.label_list.each do |label|
           %span.label.label-info= label
+    %tr
+      %td= label :task, :owner
+      %td= @task.owner.name
 
 = link_to t('common.edit'), edit_task_path(@task), class: 'btn btn-warning'
 = link_to t('common.back'), :back, class: 'btn btn-default'

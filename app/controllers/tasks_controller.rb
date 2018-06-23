@@ -1,16 +1,14 @@
 class TasksController < ApplicationController
   before_action :require_login
+  before_action :only_same_group_editable, only: %i[edit update destroy]
 
   TASKS_DISPLAY_PER_PAGE = 10
 
   def index
     prepare_search_attr
     @expired_tasks = Task.expired.where(user_id: current_user.id)
-    @tasks = Task.all
-                 .order(order_string)
-                 .includes(:user, :labels)
-                 .page(params[:page])
-                 .per(TASKS_DISPLAY_PER_PAGE)
+    @tasks = Kaminari.paginate_array(prepare_tasks)
+                     .page(params[:page]).per(TASKS_DISPLAY_PER_PAGE)
   end
 
   def search
@@ -18,7 +16,7 @@ class TasksController < ApplicationController
     @expired_tasks = Task.expired.where(user_id: current_user.id)
     @tasks = Task.search(@search_attr)
                  .order(order_string)
-                 .includes(:user, :labels)
+                 .includes(:labels, user: :group)
                  .page(params[:page])
                  .per(TASKS_DISPLAY_PER_PAGE)
     render :index
@@ -38,6 +36,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params_with_out_label_list)
+    @task.owner = current_user
     @task.label_list.add(prepare_params[:label_list], parse: true)
     if @task.save
       redirect_to @task, notice: message('task', 'create')
@@ -65,8 +64,16 @@ class TasksController < ApplicationController
 
   private
 
+  def prepare_tasks
+    if current_user.group.present?
+      Task.with_group(current_user.group)
+    else
+      current_user.tasks
+    end.order(order_string).includes(:labels)
+  end
+
   def order_string
-    return 'created_at DESC' unless params.key?(:order)
+    return 'tasks.created_at DESC' unless params.key?(:order)
     order_params.to_h.map { |key, val| "#{key} #{val.upcase}" }.join(',')
   end
 
@@ -80,6 +87,10 @@ class TasksController < ApplicationController
     @search_attr = { title: '', label_list: [] }
     @search_attr = prepare_params if params.key? :task
     @search_attr
+  end
+
+  def only_same_group_editable
+    redirect_to tasks_path unless Task.find(params[:id]).editable?(current_user)
   end
 
   def task_params_with_out_label_list

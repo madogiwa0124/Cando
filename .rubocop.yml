@@ -15,10 +15,10 @@ Documentation:
   Enabled: false
 
 LineLength:
-  Max: 120
+  Max: 150
 
 BlockLength:
-  Max: 120
+  Max: 200
 
 FrozenStringLiteralComment:
   Enabled: false

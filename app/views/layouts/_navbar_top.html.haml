@@ -10,8 +10,10 @@
     %ul.nav.navbar-nav
       - if current_user
         %li= link_to t('tasks.index.title'), tasks_path
-        %li= link_to t('admin.users.index.title'), admin_users_path
         %li= link_to t('users.edit.title'), edit_user_path(current_user)
+        -if current_user.role.admin?
+          %li= link_to t('admin.users.index.title'), admin_users_path
+          %li= link_to t('admin.groups.index.title'), admin_groups_path
         %li= link_to t('user_sessions.destroy.link'), logout_path, method: :post
       - else
         %li= link_to t('user_sessions.new.submit'), login_path

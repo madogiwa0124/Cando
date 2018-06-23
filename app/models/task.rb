@@ -5,6 +5,7 @@ class Task < ApplicationRecord
   enum priority: { low: 1, medium: 2, high: 3 }
 
   belongs_to :user, required: false
+  belongs_to :owner, class_name: 'User'
 
   validates :title,    presence: true
   validates :status,   presence: true
@@ -12,6 +13,7 @@ class Task < ApplicationRecord
   validate  :deadline_cannot_be_in_the_past, if: -> { deadline.present? }
 
   scope :expired, -> { where('deadline <= ?', Time.zone.today) }
+  scope :with_group, ->(group) { includes(user: :group).where(groups: { id: group&.id }) }
 
   def deadline_cannot_be_in_the_past
     errors.add(:deadline, 'は現在日付以降の日時を設定してください。') if deadline < Time.current.beginning_of_day
@@ -23,5 +25,15 @@ class Task < ApplicationRecord
     result = tagged_with(attr.delete(:label_list)) if attr[:label_list].present?
     result = result.where(attr) if attr.present?
     result
+  end
+
+  def editable?(target_user)
+    if target_user.role.admin?
+      true
+    elsif target_user.group.present?
+      user.group == target_user.group
+    else
+      user == target_user
+    end
   end
 end

@@ -4,6 +4,7 @@ ja:
       task: タスク
       user: ユーザー
       role: ロール
+      group: グループ
     attributes:
       task:
         title: タイトル
@@ -14,6 +15,7 @@ ja:
         user: 担当者
         label: ラベル
         label_list: ラベル
+        owner: 作成者
       user:
         id: ID
         name: 名前
@@ -25,10 +27,16 @@ ja:
         created_at: 登録日
         updated_at: 更新日
         password: パスワード
+        group: グループ
         password_confirmation: パスワード(確認)
       role:
         code: コード
         name: 名前
+      group:
+        id: ID
+        name: 名前
+        created_at: 登録日
+        updated_at: 更新日
   enums:
     task:
       status:

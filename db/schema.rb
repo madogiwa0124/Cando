@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_123861) do
+ActiveRecord::Schema.define(version: 2018_06_09_055831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
@@ -49,8 +55,18 @@ ActiveRecord::Schema.define(version: 2018_05_20_123861) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.integer "owner_id", null: false
     t.index ["title", "status"], name: "index_tasks_on_title_and_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_user_groups_on_group_id"
+    t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +81,6 @@ ActiveRecord::Schema.define(version: 2018_05_20_123861) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "user_groups", "groups"
+  add_foreign_key "user_groups", "users"
 end

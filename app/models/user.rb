@@ -3,6 +3,9 @@ class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   has_many :tasks
+  has_many :owner_tasks, class_name: 'Task', foreign_key: :owner_id, inverse_of: :owner
+  has_one :user_group
+  has_one :group, through: :user_group
   belongs_to_active_hash :role
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
