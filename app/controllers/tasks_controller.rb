@@ -47,9 +47,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.attributes = task_params_with_out_label_list
-    @task.label_list.add(prepare_params[:label_list], parse: true)
-    @task.file.attach(params[:task][:file])
+    prepare_update_task
     if @task.save
       redirect_to @task, notice: message('task', 'update')
     else
@@ -71,6 +69,12 @@ class TasksController < ApplicationController
     else
       current_user.tasks
     end.order(order_string).includes(:labels)
+  end
+
+  def prepare_update_task
+    @task.attributes = task_params_with_out_label_list
+    @task.label_list.add(prepare_params[:label_list], parse: true)
+    @task.file.attach(params[:task][:file])
   end
 
   def order_string
