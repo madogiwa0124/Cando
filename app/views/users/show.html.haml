@@ -15,7 +15,10 @@
     %tr
       %td= label :user, :created_at
       %td= @user.created_at
-
+  - if @user.avatar.attached?
+    .panel-body
+      = label :user, :avatar
+      = image_tag(url_for(@user.avatar), class: 'img-responsive')
 = link_to t('common.back'), :back, class: 'btn btn-default'
 
 %br

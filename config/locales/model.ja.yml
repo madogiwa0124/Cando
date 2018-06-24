@@ -30,6 +30,7 @@ ja:
         password: パスワード
         group: グループ
         password_confirmation: パスワード(確認)
+        avatar: ユーザー画像
       role:
         code: コード
         name: 名前

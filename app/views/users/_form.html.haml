@@ -16,5 +16,10 @@
   %div.form-group
     = f.label :password_confirmation
     = f.password_field :password_confirmation, class: 'form-control'
+  %div.form-group
+    = f.label :avatar
+    = f.file_field :avatar, class: 'file-inputs'
   .actions
     = f.submit t('common.save'), class: 'btn btn-primary'
+%script
+  $('.file-inputs').bootstrapFileInput();

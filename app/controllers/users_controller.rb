@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(current_user.id)
+    @user.avatar.attach(params[:user][:avatar])
     if @user.update(user_params)
       redirect_to @user, notice: message('user', 'update')
     else
@@ -24,6 +25,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :password, :password_confirmation)
+    params.require(:user).permit(:email, :name, :password, :password_confirmation, :avatar)
   end
 end
