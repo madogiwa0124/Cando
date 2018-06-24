@@ -12,6 +12,7 @@ class Task < ApplicationRecord
   validates :status,   presence: true
   validates :priority, presence: true
   validate  :deadline_cannot_be_in_the_past, if: -> { deadline.present? }
+  validate  :file_validation,  if: -> { file.attached? }
 
   scope :expired, -> { where('deadline <= ?', Time.zone.today) }
   scope :with_group, ->(group) { includes(user: :group).where(groups: { id: group&.id }) }
@@ -36,5 +37,18 @@ class Task < ApplicationRecord
     else
       user == target_user
     end
+  end
+
+  private
+
+  def file_validation
+    file_raise_error('のファイル容量が大きすぎます') if file.blob.byte_size > 10_000_000
+    file_raise_error('は、画像以外はアップロード出来ません') unless file.blob.content_type.starts_with?('image/')
+  end
+
+  def file_raise_error(message)
+    file.purge
+    errors.add(:file, message)
+    return
   end
 end
