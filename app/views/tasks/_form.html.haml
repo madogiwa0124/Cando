@@ -25,7 +25,10 @@
   %div.form-group
     = f.label :deadline
     = f.date_field :deadline, class: 'form-control'
-
+  %div.form-group
+    = f.label :file
+    = f.file_field :file, class: 'file-inputs'
   .actions
     = f.submit t('common.save'), class: 'btn btn-primary'
-
+  %script
+    $('.file-inputs').bootstrapFileInput();

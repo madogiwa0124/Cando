@@ -49,6 +49,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.attributes = task_params_with_out_label_list
     @task.label_list.add(prepare_params[:label_list], parse: true)
+    @task.file.attach(params[:task][:file])
     if @task.save
       redirect_to @task, notice: message('task', 'update')
     else
@@ -94,11 +95,11 @@ class TasksController < ApplicationController
   end
 
   def task_params_with_out_label_list
-    params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id)
+    params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id, :file)
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id, :label_list)
+    params.require(:task).permit(:title, :description, :status, :priority, :deadline, :user_id, :label_list, :file)
   end
 
   def order_params

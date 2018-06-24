@@ -43,6 +43,7 @@ gem 'jquery-rails'
 gem 'sorcery'
 gem 'active_hash'
 gem 'acts-as-taggable-on'
+gem 'bootstrap_file_input_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

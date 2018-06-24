@@ -16,6 +16,7 @@ ja:
         label: ラベル
         label_list: ラベル
         owner: 作成者
+        file: 添付ファイル
       user:
         id: ID
         name: 名前
