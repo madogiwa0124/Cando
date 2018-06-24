@@ -16,33 +16,20 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
-<<<<<<< Updated upstream
-  validate  :file_validation,  if: -> { avatar.attached? }
-=======
   validate  :file_validation, if: -> { avatar.attached? }
->>>>>>> Stashed changes
 
   private
 
   def file_validation
-<<<<<<< Updated upstream
-    file_raise_error('のファイル容量が大きすぎます') if avatar.blob.byte_size > 10_000_000
-    file_raise_error('は、画像以外アップロード出来ません') unless avatar.blob.content_type.starts_with?('image/')
-=======
     if avatar.blob.byte_size > 1_000_000
       file_raise_error('のファイル容量が大きすぎます')
     elsif !avatar.blob.content_type.starts_with?('image/')
       file_raise_error('は、画像以外はアップロード出来ません')
     end
->>>>>>> Stashed changes
   end
 
   def file_raise_error(message)
     avatar.purge
     errors.add(:avatar, message)
-<<<<<<< Updated upstream
-    return
-=======
->>>>>>> Stashed changes
   end
 end
